@@ -1,0 +1,38 @@
+module VatSense
+  module Models
+    type validate_check_params =
+      { eori_number: String, requester_vat_number: String, vat_number: String }
+      & VatSense::Internal::Type::request_parameters
+
+    class ValidateCheckParams < VatSense::Internal::Type::BaseModel
+      extend VatSense::Internal::Type::RequestParameters::Converter
+      include VatSense::Internal::Type::RequestParameters
+
+      attr_reader eori_number: String?
+
+      def eori_number=: (String) -> String
+
+      attr_reader requester_vat_number: String?
+
+      def requester_vat_number=: (String) -> String
+
+      attr_reader vat_number: String?
+
+      def vat_number=: (String) -> String
+
+      def initialize: (
+        ?eori_number: String,
+        ?requester_vat_number: String,
+        ?vat_number: String,
+        ?request_options: VatSense::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        eori_number: String,
+        requester_vat_number: String,
+        vat_number: String,
+        request_options: VatSense::RequestOptions
+      }
+    end
+  end
+end

@@ -1,0 +1,332 @@
+module VatSense
+  module Models
+    type invoice_api =
+      {
+        id: String,
+        business: VatSense::InvoiceAPI::Business,
+        conversion: VatSense::InvoiceConversionInput?,
+        created: Time,
+        currency_code: String,
+        customer: VatSense::InvoiceAPI::Customer?,
+        date: String,
+        has_vat: bool,
+        invoice_number: String,
+        invoice_url: String,
+        is_copy: bool,
+        is_reverse_charge: bool,
+        items: ::Array[VatSense::Invoice::InvoiceItem],
+        notes: String?,
+        num_items: Integer,
+        object: VatSense::Models::InvoiceAPI::object,
+        tax_point: String,
+        tax_type: VatSense::Models::InvoiceAPI::tax_type,
+        totals: VatSense::InvoiceAPI::Totals,
+        type: VatSense::Models::InvoiceAPI::type_,
+        updated: Time,
+        zero_rated: bool
+      }
+
+    class InvoiceAPI < VatSense::Internal::Type::BaseModel
+      attr_reader id: String?
+
+      def id=: (String) -> String
+
+      attr_reader business: VatSense::InvoiceAPI::Business?
+
+      def business=: (
+        VatSense::InvoiceAPI::Business
+      ) -> VatSense::InvoiceAPI::Business
+
+      attr_accessor conversion: VatSense::InvoiceConversionInput?
+
+      attr_reader created: Time?
+
+      def created=: (Time) -> Time
+
+      attr_reader currency_code: String?
+
+      def currency_code=: (String) -> String
+
+      attr_accessor customer: VatSense::InvoiceAPI::Customer?
+
+      attr_reader date: String?
+
+      def date=: (String) -> String
+
+      attr_reader has_vat: bool?
+
+      def has_vat=: (bool) -> bool
+
+      attr_reader invoice_number: String?
+
+      def invoice_number=: (String) -> String
+
+      attr_reader invoice_url: String?
+
+      def invoice_url=: (String) -> String
+
+      attr_reader is_copy: bool?
+
+      def is_copy=: (bool) -> bool
+
+      attr_reader is_reverse_charge: bool?
+
+      def is_reverse_charge=: (bool) -> bool
+
+      attr_reader items: ::Array[VatSense::Invoice::InvoiceItem]?
+
+      def items=: (
+        ::Array[VatSense::Invoice::InvoiceItem]
+      ) -> ::Array[VatSense::Invoice::InvoiceItem]
+
+      attr_accessor notes: String?
+
+      attr_reader num_items: Integer?
+
+      def num_items=: (Integer) -> Integer
+
+      attr_reader object: VatSense::Models::InvoiceAPI::object?
+
+      def object=: (
+        VatSense::Models::InvoiceAPI::object
+      ) -> VatSense::Models::InvoiceAPI::object
+
+      attr_reader tax_point: String?
+
+      def tax_point=: (String) -> String
+
+      attr_reader tax_type: VatSense::Models::InvoiceAPI::tax_type?
+
+      def tax_type=: (
+        VatSense::Models::InvoiceAPI::tax_type
+      ) -> VatSense::Models::InvoiceAPI::tax_type
+
+      attr_reader totals: VatSense::InvoiceAPI::Totals?
+
+      def totals=: (
+        VatSense::InvoiceAPI::Totals
+      ) -> VatSense::InvoiceAPI::Totals
+
+      attr_reader type: VatSense::Models::InvoiceAPI::type_?
+
+      def type=: (
+        VatSense::Models::InvoiceAPI::type_
+      ) -> VatSense::Models::InvoiceAPI::type_
+
+      attr_reader updated: Time?
+
+      def updated=: (Time) -> Time
+
+      attr_reader zero_rated: bool?
+
+      def zero_rated=: (bool) -> bool
+
+      def initialize: (
+        ?id: String,
+        ?business: VatSense::InvoiceAPI::Business,
+        ?conversion: VatSense::InvoiceConversionInput?,
+        ?created: Time,
+        ?currency_code: String,
+        ?customer: VatSense::InvoiceAPI::Customer?,
+        ?date: String,
+        ?has_vat: bool,
+        ?invoice_number: String,
+        ?invoice_url: String,
+        ?is_copy: bool,
+        ?is_reverse_charge: bool,
+        ?items: ::Array[VatSense::Invoice::InvoiceItem],
+        ?notes: String?,
+        ?num_items: Integer,
+        ?object: VatSense::Models::InvoiceAPI::object,
+        ?tax_point: String,
+        ?tax_type: VatSense::Models::InvoiceAPI::tax_type,
+        ?totals: VatSense::InvoiceAPI::Totals,
+        ?type: VatSense::Models::InvoiceAPI::type_,
+        ?updated: Time,
+        ?zero_rated: bool
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        business: VatSense::InvoiceAPI::Business,
+        conversion: VatSense::InvoiceConversionInput?,
+        created: Time,
+        currency_code: String,
+        customer: VatSense::InvoiceAPI::Customer?,
+        date: String,
+        has_vat: bool,
+        invoice_number: String,
+        invoice_url: String,
+        is_copy: bool,
+        is_reverse_charge: bool,
+        items: ::Array[VatSense::Invoice::InvoiceItem],
+        notes: String?,
+        num_items: Integer,
+        object: VatSense::Models::InvoiceAPI::object,
+        tax_point: String,
+        tax_type: VatSense::Models::InvoiceAPI::tax_type,
+        totals: VatSense::InvoiceAPI::Totals,
+        type: VatSense::Models::InvoiceAPI::type_,
+        updated: Time,
+        zero_rated: bool
+      }
+
+      type business =
+        {
+          address: String,
+          company_number: String,
+          logo: String?,
+          name: String,
+          vat_number: String
+        }
+
+      class Business < VatSense::Internal::Type::BaseModel
+        attr_reader address: String?
+
+        def address=: (String) -> String
+
+        attr_reader company_number: String?
+
+        def company_number=: (String) -> String
+
+        attr_accessor logo: String?
+
+        attr_reader name: String?
+
+        def name=: (String) -> String
+
+        attr_reader vat_number: String?
+
+        def vat_number=: (String) -> String
+
+        def initialize: (
+          ?address: String,
+          ?company_number: String,
+          ?logo: String?,
+          ?name: String,
+          ?vat_number: String
+        ) -> void
+
+        def to_hash: -> {
+          address: String,
+          company_number: String,
+          logo: String?,
+          name: String,
+          vat_number: String
+        }
+      end
+
+      type customer =
+        {
+          address: String,
+          company_number: String,
+          logo: String?,
+          name: String,
+          vat_number: String
+        }
+
+      class Customer < VatSense::Internal::Type::BaseModel
+        attr_reader address: String?
+
+        def address=: (String) -> String
+
+        attr_reader company_number: String?
+
+        def company_number=: (String) -> String
+
+        attr_accessor logo: String?
+
+        attr_reader name: String?
+
+        def name=: (String) -> String
+
+        attr_reader vat_number: String?
+
+        def vat_number=: (String) -> String
+
+        def initialize: (
+          ?address: String,
+          ?company_number: String,
+          ?logo: String?,
+          ?name: String,
+          ?vat_number: String
+        ) -> void
+
+        def to_hash: -> {
+          address: String,
+          company_number: String,
+          logo: String?,
+          name: String,
+          vat_number: String
+        }
+      end
+
+      type object = :invoice
+
+      module Object
+        extend VatSense::Internal::Type::Enum
+
+        INVOICE: :invoice
+
+        def self?.values: -> ::Array[VatSense::Models::InvoiceAPI::object]
+      end
+
+      type tax_type = :incl | :excl
+
+      module TaxType
+        extend VatSense::Internal::Type::Enum
+
+        INCL: :incl
+        EXCL: :excl
+
+        def self?.values: -> ::Array[VatSense::Models::InvoiceAPI::tax_type]
+      end
+
+      type totals =
+        { discount: Float, subtotal: Float, total: Float, vat: Float }
+
+      class Totals < VatSense::Internal::Type::BaseModel
+        attr_reader discount: Float?
+
+        def discount=: (Float) -> Float
+
+        attr_reader subtotal: Float?
+
+        def subtotal=: (Float) -> Float
+
+        attr_reader total: Float?
+
+        def total=: (Float) -> Float
+
+        attr_reader vat: Float?
+
+        def vat=: (Float) -> Float
+
+        def initialize: (
+          ?discount: Float,
+          ?subtotal: Float,
+          ?total: Float,
+          ?vat: Float
+        ) -> void
+
+        def to_hash: -> {
+          discount: Float,
+          subtotal: Float,
+          total: Float,
+          vat: Float
+        }
+      end
+
+      type type_ = :sale | :refund
+
+      module Type
+        extend VatSense::Internal::Type::Enum
+
+        SALE: :sale
+        REFUND: :refund
+
+        def self?.values: -> ::Array[VatSense::Models::InvoiceAPI::type_]
+      end
+    end
+  end
+end

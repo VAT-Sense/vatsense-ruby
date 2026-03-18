@@ -1,0 +1,15 @@
+module VatSense
+  module Models
+    type invoice_delete_response = { code: Integer, success: bool }
+
+    class InvoiceDeleteResponse < VatSense::Internal::Type::BaseModel
+      attr_accessor code: Integer
+
+      attr_accessor success: bool
+
+      def initialize: (code: Integer, success: bool) -> void
+
+      def to_hash: -> { code: Integer, success: bool }
+    end
+  end
+end

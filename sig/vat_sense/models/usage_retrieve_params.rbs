@@ -1,0 +1,15 @@
+module VatSense
+  module Models
+    type usage_retrieve_params =
+      {  } & VatSense::Internal::Type::request_parameters
+
+    class UsageRetrieveParams < VatSense::Internal::Type::BaseModel
+      extend VatSense::Internal::Type::RequestParameters::Converter
+      include VatSense::Internal::Type::RequestParameters
+
+      def initialize: (?request_options: VatSense::request_opts) -> void
+
+      def to_hash: -> { request_options: VatSense::RequestOptions }
+    end
+  end
+end
