@@ -1,0 +1,45 @@
+module Vatsense
+  module Models
+    type currency_list_params =
+      { from: String, to: Vatsense::Models::CurrencyListParams::to }
+      & Vatsense::Internal::Type::request_parameters
+
+    class CurrencyListParams < Vatsense::Internal::Type::BaseModel
+      extend Vatsense::Internal::Type::RequestParameters::Converter
+      include Vatsense::Internal::Type::RequestParameters
+
+      attr_reader from: String?
+
+      def from=: (String) -> String
+
+      attr_reader to: Vatsense::Models::CurrencyListParams::to?
+
+      def to=: (
+        Vatsense::Models::CurrencyListParams::to
+      ) -> Vatsense::Models::CurrencyListParams::to
+
+      def initialize: (
+        ?from: String,
+        ?to: Vatsense::Models::CurrencyListParams::to,
+        ?request_options: Vatsense::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        from: String,
+        to: Vatsense::Models::CurrencyListParams::to,
+        request_options: Vatsense::RequestOptions
+      }
+
+      type to = :GBP | :EUR
+
+      module To
+        extend Vatsense::Internal::Type::Enum
+
+        GBP: :GBP
+        EUR: :EUR
+
+        def self?.values: -> ::Array[Vatsense::Models::CurrencyListParams::to]
+      end
+    end
+  end
+end

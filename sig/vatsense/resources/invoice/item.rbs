@@ -1,0 +1,38 @@
+module Vatsense
+  module Resources
+    class Invoice
+      class Item
+        def retrieve: (
+          String item_id,
+          invoice_id: String,
+          ?request_options: Vatsense::request_opts
+        ) -> Vatsense::Models::Invoice::ItemRetrieveResponse
+
+        def update: (
+          String item_id,
+          invoice_id: String,
+          item: String,
+          price_each: Float,
+          quantity: Float,
+          vat_rate: Float,
+          ?discount_rate: Float,
+          ?request_options: Vatsense::request_opts
+        ) -> Vatsense::InvoiceResponse
+
+        def delete: (
+          String item_id,
+          invoice_id: String,
+          ?request_options: Vatsense::request_opts
+        ) -> Vatsense::InvoiceResponse
+
+        def add: (
+          String invoice_id,
+          items: ::Array[Vatsense::Invoice::InvoiceItemInput],
+          ?request_options: Vatsense::request_opts
+        ) -> Vatsense::InvoiceResponse
+
+        def initialize: (client: Vatsense::Client) -> void
+      end
+    end
+  end
+end

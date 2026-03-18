@@ -1,0 +1,85 @@
+module Vatsense
+  module Models
+    class InvoiceItem = Invoice::InvoiceItem
+
+    module Invoice
+      type invoice_item =
+        {
+          id: String,
+          discount_rate: Float?,
+          item: String,
+          object: Vatsense::Models::Invoice::InvoiceItem::object,
+          price_each: Float,
+          price_total: Float,
+          quantity: Float,
+          vat_rate: Float
+        }
+
+      class InvoiceItem < Vatsense::Internal::Type::BaseModel
+        attr_reader id: String?
+
+        def id=: (String) -> String
+
+        attr_accessor discount_rate: Float?
+
+        attr_reader item: String?
+
+        def item=: (String) -> String
+
+        attr_reader object: Vatsense::Models::Invoice::InvoiceItem::object?
+
+        def object=: (
+          Vatsense::Models::Invoice::InvoiceItem::object
+        ) -> Vatsense::Models::Invoice::InvoiceItem::object
+
+        attr_reader price_each: Float?
+
+        def price_each=: (Float) -> Float
+
+        attr_reader price_total: Float?
+
+        def price_total=: (Float) -> Float
+
+        attr_reader quantity: Float?
+
+        def quantity=: (Float) -> Float
+
+        attr_reader vat_rate: Float?
+
+        def vat_rate=: (Float) -> Float
+
+        def initialize: (
+          ?id: String,
+          ?discount_rate: Float?,
+          ?item: String,
+          ?object: Vatsense::Models::Invoice::InvoiceItem::object,
+          ?price_each: Float,
+          ?price_total: Float,
+          ?quantity: Float,
+          ?vat_rate: Float
+        ) -> void
+
+        def to_hash: -> {
+          id: String,
+          discount_rate: Float?,
+          item: String,
+          object: Vatsense::Models::Invoice::InvoiceItem::object,
+          price_each: Float,
+          price_total: Float,
+          quantity: Float,
+          vat_rate: Float
+        }
+
+        type object = :item
+
+        module Object
+          extend Vatsense::Internal::Type::Enum
+
+          ITEM: :item
+
+          def self?.values: -> ::Array[Vatsense::Models::Invoice::InvoiceItem::object]
+        end
+      end
+    end
+  end
+end

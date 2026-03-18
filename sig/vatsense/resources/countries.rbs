@@ -1,0 +1,18 @@
+module Vatsense
+  module Resources
+    class Countries
+      def list: (
+        ?country_code: String,
+        ?ip_address: String,
+        ?request_options: Vatsense::request_opts
+      ) -> Vatsense::Models::CountryListResponse
+
+      def list_provinces: (
+        country_code: String,
+        ?request_options: Vatsense::request_opts
+      ) -> Vatsense::Models::CountryListProvincesResponse
+
+      def initialize: (client: Vatsense::Client) -> void
+    end
+  end
+end

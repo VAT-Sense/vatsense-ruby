@@ -1,0 +1,62 @@
+module Vatsense
+  module Models
+    type rate_with_tax_rate =
+      {
+        country_code: String,
+        country_name: String,
+        eu: bool,
+        object: Vatsense::Models::RateWithTaxRate::object,
+        tax_rate: Vatsense::TaxRate
+      }
+
+    class RateWithTaxRate < Vatsense::Internal::Type::BaseModel
+      attr_reader country_code: String?
+
+      def country_code=: (String) -> String
+
+      attr_reader country_name: String?
+
+      def country_name=: (String) -> String
+
+      attr_reader eu: bool?
+
+      def eu=: (bool) -> bool
+
+      attr_reader object: Vatsense::Models::RateWithTaxRate::object?
+
+      def object=: (
+        Vatsense::Models::RateWithTaxRate::object
+      ) -> Vatsense::Models::RateWithTaxRate::object
+
+      attr_reader tax_rate: Vatsense::TaxRate?
+
+      def tax_rate=: (Vatsense::TaxRate) -> Vatsense::TaxRate
+
+      def initialize: (
+        ?country_code: String,
+        ?country_name: String,
+        ?eu: bool,
+        ?object: Vatsense::Models::RateWithTaxRate::object,
+        ?tax_rate: Vatsense::TaxRate
+      ) -> void
+
+      def to_hash: -> {
+        country_code: String,
+        country_name: String,
+        eu: bool,
+        object: Vatsense::Models::RateWithTaxRate::object,
+        tax_rate: Vatsense::TaxRate
+      }
+
+      type object = :rate
+
+      module Object
+        extend Vatsense::Internal::Type::Enum
+
+        RATE: :rate
+
+        def self?.values: -> ::Array[Vatsense::Models::RateWithTaxRate::object]
+      end
+    end
+  end
+end

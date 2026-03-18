@@ -1,0 +1,34 @@
+module Vatsense
+  module Models
+    type invoice_list_response =
+      { code: Integer, data: ::Array[Vatsense::InvoiceAPI], success: bool }
+
+    class InvoiceListResponse < Vatsense::Internal::Type::BaseModel
+      attr_reader code: Integer?
+
+      def code=: (Integer) -> Integer
+
+      attr_reader data: ::Array[Vatsense::InvoiceAPI]?
+
+      def data=: (
+        ::Array[Vatsense::InvoiceAPI]
+      ) -> ::Array[Vatsense::InvoiceAPI]
+
+      attr_reader success: bool?
+
+      def success=: (bool) -> bool
+
+      def initialize: (
+        ?code: Integer,
+        ?data: ::Array[Vatsense::InvoiceAPI],
+        ?success: bool
+      ) -> void
+
+      def to_hash: -> {
+        code: Integer,
+        data: ::Array[Vatsense::InvoiceAPI],
+        success: bool
+      }
+    end
+  end
+end

@@ -1,0 +1,23 @@
+module Vatsense
+  module Models
+    type country_list_provinces_params =
+      { country_code: String } & Vatsense::Internal::Type::request_parameters
+
+    class CountryListProvincesParams < Vatsense::Internal::Type::BaseModel
+      extend Vatsense::Internal::Type::RequestParameters::Converter
+      include Vatsense::Internal::Type::RequestParameters
+
+      attr_accessor country_code: String
+
+      def initialize: (
+        country_code: String,
+        ?request_options: Vatsense::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        country_code: String,
+        request_options: Vatsense::RequestOptions
+      }
+    end
+  end
+end

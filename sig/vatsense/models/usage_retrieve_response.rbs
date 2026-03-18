@@ -1,0 +1,81 @@
+module Vatsense
+  module Models
+    type usage_retrieve_response =
+      {
+        code: Integer,
+        data: Vatsense::Models::UsageRetrieveResponse::Data,
+        success: bool
+      }
+
+    class UsageRetrieveResponse < Vatsense::Internal::Type::BaseModel
+      attr_reader code: Integer?
+
+      def code=: (Integer) -> Integer
+
+      attr_reader data: Vatsense::Models::UsageRetrieveResponse::Data?
+
+      def data=: (
+        Vatsense::Models::UsageRetrieveResponse::Data
+      ) -> Vatsense::Models::UsageRetrieveResponse::Data
+
+      attr_reader success: bool?
+
+      def success=: (bool) -> bool
+
+      def initialize: (
+        ?code: Integer,
+        ?data: Vatsense::Models::UsageRetrieveResponse::Data,
+        ?success: bool
+      ) -> void
+
+      def to_hash: -> {
+        code: Integer,
+        data: Vatsense::Models::UsageRetrieveResponse::Data,
+        success: bool
+      }
+
+      type data =
+        { requests: Vatsense::Models::UsageRetrieveResponse::Data::Requests }
+
+      class Data < Vatsense::Internal::Type::BaseModel
+        attr_reader requests: Vatsense::Models::UsageRetrieveResponse::Data::Requests?
+
+        def requests=: (
+          Vatsense::Models::UsageRetrieveResponse::Data::Requests
+        ) -> Vatsense::Models::UsageRetrieveResponse::Data::Requests
+
+        def initialize: (
+          ?requests: Vatsense::Models::UsageRetrieveResponse::Data::Requests
+        ) -> void
+
+        def to_hash: -> {
+          requests: Vatsense::Models::UsageRetrieveResponse::Data::Requests
+        }
+
+        type requests = { remaining: Integer, total: Integer, used: Integer }
+
+        class Requests < Vatsense::Internal::Type::BaseModel
+          attr_reader remaining: Integer?
+
+          def remaining=: (Integer) -> Integer
+
+          attr_reader total: Integer?
+
+          def total=: (Integer) -> Integer
+
+          attr_reader used: Integer?
+
+          def used=: (Integer) -> Integer
+
+          def initialize: (
+            ?remaining: Integer,
+            ?total: Integer,
+            ?used: Integer
+          ) -> void
+
+          def to_hash: -> { remaining: Integer, total: Integer, used: Integer }
+        end
+      end
+    end
+  end
+end

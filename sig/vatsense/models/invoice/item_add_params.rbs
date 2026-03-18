@@ -1,0 +1,33 @@
+module Vatsense
+  module Models
+    module Invoice
+      type item_add_params =
+        {
+          invoice_id: String,
+          items: ::Array[Vatsense::Invoice::InvoiceItemInput]
+        }
+        & Vatsense::Internal::Type::request_parameters
+
+      class ItemAddParams < Vatsense::Internal::Type::BaseModel
+        extend Vatsense::Internal::Type::RequestParameters::Converter
+        include Vatsense::Internal::Type::RequestParameters
+
+        attr_accessor invoice_id: String
+
+        attr_accessor items: ::Array[Vatsense::Invoice::InvoiceItemInput]
+
+        def initialize: (
+          invoice_id: String,
+          items: ::Array[Vatsense::Invoice::InvoiceItemInput],
+          ?request_options: Vatsense::request_opts
+        ) -> void
+
+        def to_hash: -> {
+          invoice_id: String,
+          items: ::Array[Vatsense::Invoice::InvoiceItemInput],
+          request_options: Vatsense::RequestOptions
+        }
+      end
+    end
+  end
+end
