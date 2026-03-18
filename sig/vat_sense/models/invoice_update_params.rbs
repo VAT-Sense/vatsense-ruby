@@ -1,0 +1,25 @@
+module VatSense
+  module Models
+    type invoice_update_params =
+      { invoice_id: String } & VatSense::Internal::Type::request_parameters
+
+    class InvoiceUpdateParams < VatSense::Models::CreateInvoice
+      extend VatSense::Internal::Type::RequestParameters::Converter
+      include VatSense::Internal::Type::RequestParameters
+
+      def invoice_id: -> String
+
+      def invoice_id=: (String _) -> String
+
+      def initialize: (
+        invoice_id: String,
+        ?request_options: VatSense::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        invoice_id: String,
+        request_options: VatSense::RequestOptions
+      }
+    end
+  end
+end

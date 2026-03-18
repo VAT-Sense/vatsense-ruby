@@ -1,0 +1,32 @@
+module VatSense
+  module Models
+    type country_list_response =
+      { code: Integer, data: ::Array[VatSense::Country], success: bool }
+
+    class CountryListResponse < VatSense::Internal::Type::BaseModel
+      attr_reader code: Integer?
+
+      def code=: (Integer) -> Integer
+
+      attr_reader data: ::Array[VatSense::Country]?
+
+      def data=: (::Array[VatSense::Country]) -> ::Array[VatSense::Country]
+
+      attr_reader success: bool?
+
+      def success=: (bool) -> bool
+
+      def initialize: (
+        ?code: Integer,
+        ?data: ::Array[VatSense::Country],
+        ?success: bool
+      ) -> void
+
+      def to_hash: -> {
+        code: Integer,
+        data: ::Array[VatSense::Country],
+        success: bool
+      }
+    end
+  end
+end

@@ -1,0 +1,69 @@
+module VatSense
+  module Resources
+    class Invoice
+      attr_reader item: VatSense::Resources::Invoice::Item
+
+      def create: (
+        business: VatSense::InvoiceBusinessInput,
+        currency_code: String,
+        date: String,
+        items: ::Array[VatSense::Invoice::InvoiceItemInput],
+        tax_point: String,
+        ?conversion: VatSense::InvoiceConversionInput,
+        ?customer: VatSense::InvoiceCustomerInput,
+        ?has_vat: bool,
+        ?invoice_number: String,
+        ?is_copy: bool,
+        ?is_reverse_charge: bool,
+        ?notes: String,
+        ?pad_invoice_number: Integer,
+        ?serial: String,
+        ?tax_type: VatSense::Models::CreateInvoice::tax_type,
+        ?type: VatSense::Models::CreateInvoice::type_,
+        ?zero_rated: bool,
+        ?request_options: VatSense::request_opts
+      ) -> VatSense::InvoiceResponse
+
+      def retrieve: (
+        String invoice_id,
+        ?request_options: VatSense::request_opts
+      ) -> VatSense::InvoiceResponse
+
+      def update: (
+        String invoice_id,
+        business: VatSense::InvoiceBusinessInput,
+        currency_code: String,
+        date: String,
+        items: ::Array[VatSense::Invoice::InvoiceItemInput],
+        tax_point: String,
+        ?conversion: VatSense::InvoiceConversionInput,
+        ?customer: VatSense::InvoiceCustomerInput,
+        ?has_vat: bool,
+        ?invoice_number: String,
+        ?is_copy: bool,
+        ?is_reverse_charge: bool,
+        ?notes: String,
+        ?pad_invoice_number: Integer,
+        ?serial: String,
+        ?tax_type: VatSense::Models::CreateInvoice::tax_type,
+        ?type: VatSense::Models::CreateInvoice::type_,
+        ?zero_rated: bool,
+        ?request_options: VatSense::request_opts
+      ) -> VatSense::InvoiceResponse
+
+      def list: (
+        ?limit: Integer,
+        ?offset: Integer,
+        ?search: String,
+        ?request_options: VatSense::request_opts
+      ) -> VatSense::Models::InvoiceListResponse
+
+      def delete: (
+        String invoice_id,
+        ?request_options: VatSense::request_opts
+      ) -> VatSense::Models::InvoiceDeleteResponse
+
+      def initialize: (client: VatSense::Client) -> void
+    end
+  end
+end

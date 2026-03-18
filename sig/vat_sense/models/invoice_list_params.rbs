@@ -1,0 +1,38 @@
+module VatSense
+  module Models
+    type invoice_list_params =
+      { limit: Integer, offset: Integer, search: String }
+      & VatSense::Internal::Type::request_parameters
+
+    class InvoiceListParams < VatSense::Internal::Type::BaseModel
+      extend VatSense::Internal::Type::RequestParameters::Converter
+      include VatSense::Internal::Type::RequestParameters
+
+      attr_reader limit: Integer?
+
+      def limit=: (Integer) -> Integer
+
+      attr_reader offset: Integer?
+
+      def offset=: (Integer) -> Integer
+
+      attr_reader search: String?
+
+      def search=: (String) -> String
+
+      def initialize: (
+        ?limit: Integer,
+        ?offset: Integer,
+        ?search: String,
+        ?request_options: VatSense::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        limit: Integer,
+        offset: Integer,
+        search: String,
+        request_options: VatSense::RequestOptions
+      }
+    end
+  end
+end

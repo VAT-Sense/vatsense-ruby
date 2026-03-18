@@ -1,0 +1,161 @@
+module VatSense
+  module Models
+    type validate_check_response =
+      {
+        code: Integer,
+        data: VatSense::Models::ValidateCheckResponse::Data,
+        success: bool
+      }
+
+    class ValidateCheckResponse < VatSense::Internal::Type::BaseModel
+      attr_reader code: Integer?
+
+      def code=: (Integer) -> Integer
+
+      attr_reader data: VatSense::Models::ValidateCheckResponse::Data?
+
+      def data=: (
+        VatSense::Models::ValidateCheckResponse::Data
+      ) -> VatSense::Models::ValidateCheckResponse::Data
+
+      attr_reader success: bool?
+
+      def success=: (bool) -> bool
+
+      def initialize: (
+        ?code: Integer,
+        ?data: VatSense::Models::ValidateCheckResponse::Data,
+        ?success: bool
+      ) -> void
+
+      def to_hash: -> {
+        code: Integer,
+        data: VatSense::Models::ValidateCheckResponse::Data,
+        success: bool
+      }
+
+      type data =
+        {
+          company: VatSense::Models::ValidateCheckResponse::Data::company,
+          consultation_number: String?,
+          valid: bool
+        }
+
+      class Data < VatSense::Internal::Type::BaseModel
+        attr_reader company: VatSense::Models::ValidateCheckResponse::Data::company?
+
+        def company=: (
+          VatSense::Models::ValidateCheckResponse::Data::company
+        ) -> VatSense::Models::ValidateCheckResponse::Data::company
+
+        attr_accessor consultation_number: String?
+
+        attr_reader valid: bool?
+
+        def valid=: (bool) -> bool
+
+        def initialize: (
+          ?company: VatSense::Models::ValidateCheckResponse::Data::company,
+          ?consultation_number: String?,
+          ?valid: bool
+        ) -> void
+
+        def to_hash: -> {
+          company: VatSense::Models::ValidateCheckResponse::Data::company,
+          consultation_number: String?,
+          valid: bool
+        }
+
+        type company =
+          VatSense::Models::ValidateCheckResponse::Data::Company::ValidationCompany
+          | VatSense::Models::ValidateCheckResponse::Data::Company::EoriValidationCompany
+
+        module Company
+          extend VatSense::Internal::Type::Union
+
+          type validation_company =
+            {
+              company_address: String,
+              company_name: String,
+              country_code: String,
+              vat_number: String
+            }
+
+          class ValidationCompany < VatSense::Internal::Type::BaseModel
+            attr_reader company_address: String?
+
+            def company_address=: (String) -> String
+
+            attr_reader company_name: String?
+
+            def company_name=: (String) -> String
+
+            attr_reader country_code: String?
+
+            def country_code=: (String) -> String
+
+            attr_reader vat_number: String?
+
+            def vat_number=: (String) -> String
+
+            def initialize: (
+              ?company_address: String,
+              ?company_name: String,
+              ?country_code: String,
+              ?vat_number: String
+            ) -> void
+
+            def to_hash: -> {
+              company_address: String,
+              company_name: String,
+              country_code: String,
+              vat_number: String
+            }
+          end
+
+          type eori_validation_company =
+            {
+              company_address: String,
+              company_name: String,
+              country_code: String,
+              eori_number: String
+            }
+
+          class EoriValidationCompany < VatSense::Internal::Type::BaseModel
+            attr_reader company_address: String?
+
+            def company_address=: (String) -> String
+
+            attr_reader company_name: String?
+
+            def company_name=: (String) -> String
+
+            attr_reader country_code: String?
+
+            def country_code=: (String) -> String
+
+            attr_reader eori_number: String?
+
+            def eori_number=: (String) -> String
+
+            def initialize: (
+              ?company_address: String,
+              ?company_name: String,
+              ?country_code: String,
+              ?eori_number: String
+            ) -> void
+
+            def to_hash: -> {
+              company_address: String,
+              company_name: String,
+              country_code: String,
+              eori_number: String
+            }
+          end
+
+          def self?.variants: -> ::Array[VatSense::Models::ValidateCheckResponse::Data::company]
+        end
+      end
+    end
+  end
+end

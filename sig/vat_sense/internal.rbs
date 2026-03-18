@@ -1,0 +1,9 @@
+module VatSense
+  module Internal
+    extend VatSense::Internal::Util::SorbetRuntimeSupport
+
+    type file_input = Pathname | StringIO | IO | String | VatSense::FilePart
+
+    OMIT: Object
+  end
+end
