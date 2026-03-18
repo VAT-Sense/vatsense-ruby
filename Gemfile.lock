@@ -11,7 +11,7 @@ GIT
 PATH
   remote: .
   specs:
-    vatsense (0.0.1)
+    vatsense (0.1.0)
       cgi
       connection_pool
 
