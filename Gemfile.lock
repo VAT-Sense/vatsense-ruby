@@ -11,7 +11,7 @@ GIT
 PATH
   remote: .
   specs:
-    vat-sense (0.0.1)
+    vatsense (0.1.0)
       cgi
       connection_pool
 
@@ -219,7 +219,7 @@ DEPENDENCIES
   syntax_tree
   syntax_tree-rbs!
   tapioca
-  vat-sense!
+  vatsense!
   webmock
   webrick
   yard

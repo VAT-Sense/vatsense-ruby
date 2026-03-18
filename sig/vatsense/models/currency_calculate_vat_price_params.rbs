@@ -1,0 +1,47 @@
+module Vatsense
+  module Models
+    type currency_calculate_vat_price_params =
+      {
+        price: String,
+        tax_type: Vatsense::Models::CurrencyCalculateVatPriceParams::tax_type,
+        vat_rate: Float
+      }
+      & Vatsense::Internal::Type::request_parameters
+
+    class CurrencyCalculateVatPriceParams < Vatsense::Internal::Type::BaseModel
+      extend Vatsense::Internal::Type::RequestParameters::Converter
+      include Vatsense::Internal::Type::RequestParameters
+
+      attr_accessor price: String
+
+      attr_accessor tax_type: Vatsense::Models::CurrencyCalculateVatPriceParams::tax_type
+
+      attr_accessor vat_rate: Float
+
+      def initialize: (
+        price: String,
+        tax_type: Vatsense::Models::CurrencyCalculateVatPriceParams::tax_type,
+        vat_rate: Float,
+        ?request_options: Vatsense::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        price: String,
+        tax_type: Vatsense::Models::CurrencyCalculateVatPriceParams::tax_type,
+        vat_rate: Float,
+        request_options: Vatsense::RequestOptions
+      }
+
+      type tax_type = :incl | :excl
+
+      module TaxType
+        extend Vatsense::Internal::Type::Enum
+
+        INCL: :incl
+        EXCL: :excl
+
+        def self?.values: -> ::Array[Vatsense::Models::CurrencyCalculateVatPriceParams::tax_type]
+      end
+    end
+  end
+end

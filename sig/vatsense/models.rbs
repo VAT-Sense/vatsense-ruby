@@ -1,0 +1,63 @@
+module Vatsense
+  class Country = Vatsense::Models::Country
+
+  class CountryListParams = Vatsense::Models::CountryListParams
+
+  class CountryListProvincesParams = Vatsense::Models::CountryListProvincesParams
+
+  class CreateInvoice = Vatsense::Models::CreateInvoice
+
+  class CurrencyCalculateVatPriceParams = Vatsense::Models::CurrencyCalculateVatPriceParams
+
+  class CurrencyConvertParams = Vatsense::Models::CurrencyConvertParams
+
+  class CurrencyListParams = Vatsense::Models::CurrencyListParams
+
+  class FindRate = Vatsense::Models::FindRate
+
+  module Invoice = Vatsense::Models::Invoice
+
+  class InvoiceAPI = Vatsense::Models::InvoiceAPI
+
+  class InvoiceBusinessInput = Vatsense::Models::InvoiceBusinessInput
+
+  class InvoiceConversionInput = Vatsense::Models::InvoiceConversionInput
+
+  class InvoiceCreateParams = Vatsense::Models::InvoiceCreateParams
+
+  class InvoiceCustomerInput = Vatsense::Models::InvoiceCustomerInput
+
+  class InvoiceDeleteParams = Vatsense::Models::InvoiceDeleteParams
+
+  class InvoiceListParams = Vatsense::Models::InvoiceListParams
+
+  class InvoiceResponse = Vatsense::Models::InvoiceResponse
+
+  class InvoiceRetrieveParams = Vatsense::Models::InvoiceRetrieveParams
+
+  class InvoiceUpdateParams = Vatsense::Models::InvoiceUpdateParams
+
+  class Rate = Vatsense::Models::Rate
+
+  class RateCalculatePriceParams = Vatsense::Models::RateCalculatePriceParams
+
+  class RateDetailsParams = Vatsense::Models::RateDetailsParams
+
+  class RateFindParams = Vatsense::Models::RateFindParams
+
+  class RateListParams = Vatsense::Models::RateListParams
+
+  class RateListTypesParams = Vatsense::Models::RateListTypesParams
+
+  class RateWithTaxRate = Vatsense::Models::RateWithTaxRate
+
+  class SandboxGenerateKeyParams = Vatsense::Models::SandboxGenerateKeyParams
+
+  class TaxRate = Vatsense::Models::TaxRate
+
+  class UsageRetrieveParams = Vatsense::Models::UsageRetrieveParams
+
+  class ValidateCheckParams = Vatsense::Models::ValidateCheckParams
+
+  class VatPrice = Vatsense::Models::VatPrice
+end

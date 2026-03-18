@@ -1,0 +1,28 @@
+module Vatsense
+  module Models
+    type currency_calculate_vat_price_response =
+      { code: Integer, data: Vatsense::VatPrice, success: bool }
+
+    class CurrencyCalculateVatPriceResponse < Vatsense::Internal::Type::BaseModel
+      attr_reader code: Integer?
+
+      def code=: (Integer) -> Integer
+
+      attr_reader data: Vatsense::VatPrice?
+
+      def data=: (Vatsense::VatPrice) -> Vatsense::VatPrice
+
+      attr_reader success: bool?
+
+      def success=: (bool) -> bool
+
+      def initialize: (
+        ?code: Integer,
+        ?data: Vatsense::VatPrice,
+        ?success: bool
+      ) -> void
+
+      def to_hash: -> { code: Integer, data: Vatsense::VatPrice, success: bool }
+    end
+  end
+end

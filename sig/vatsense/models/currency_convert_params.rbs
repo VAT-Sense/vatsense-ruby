@@ -1,0 +1,47 @@
+module Vatsense
+  module Models
+    type currency_convert_params =
+      {
+        amount: String,
+        from: String,
+        to: Vatsense::Models::CurrencyConvertParams::to
+      }
+      & Vatsense::Internal::Type::request_parameters
+
+    class CurrencyConvertParams < Vatsense::Internal::Type::BaseModel
+      extend Vatsense::Internal::Type::RequestParameters::Converter
+      include Vatsense::Internal::Type::RequestParameters
+
+      attr_accessor amount: String
+
+      attr_accessor from: String
+
+      attr_accessor to: Vatsense::Models::CurrencyConvertParams::to
+
+      def initialize: (
+        amount: String,
+        from: String,
+        to: Vatsense::Models::CurrencyConvertParams::to,
+        ?request_options: Vatsense::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        amount: String,
+        from: String,
+        to: Vatsense::Models::CurrencyConvertParams::to,
+        request_options: Vatsense::RequestOptions
+      }
+
+      type to = :GBP | :EUR
+
+      module To
+        extend Vatsense::Internal::Type::Enum
+
+        GBP: :GBP
+        EUR: :EUR
+
+        def self?.values: -> ::Array[Vatsense::Models::CurrencyConvertParams::to]
+      end
+    end
+  end
+end

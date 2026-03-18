@@ -40,9 +40,9 @@ Layout/LineLength:
   AllowedPatterns:
     - "^\\s*#.*$"
     - ^require(_relative)?
-    - "VatSense::Internal::Type::BaseModel$"
+    - "Vatsense::Internal::Type::BaseModel$"
     - "^\\s*[A-Z0-9_]+ = :"
-    - "VatSense::(Models|Resources|Test)::"
+    - "Vatsense::(Models|Resources|Test)::"
   Max: 110
 
 Layout/MultilineArrayLineBreaks:

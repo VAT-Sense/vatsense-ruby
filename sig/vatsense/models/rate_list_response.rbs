@@ -1,0 +1,32 @@
+module Vatsense
+  module Models
+    type rate_list_response =
+      { code: Integer, data: ::Array[Vatsense::Rate], success: bool }
+
+    class RateListResponse < Vatsense::Internal::Type::BaseModel
+      attr_reader code: Integer?
+
+      def code=: (Integer) -> Integer
+
+      attr_reader data: ::Array[Vatsense::Rate]?
+
+      def data=: (::Array[Vatsense::Rate]) -> ::Array[Vatsense::Rate]
+
+      attr_reader success: bool?
+
+      def success=: (bool) -> bool
+
+      def initialize: (
+        ?code: Integer,
+        ?data: ::Array[Vatsense::Rate],
+        ?success: bool
+      ) -> void
+
+      def to_hash: -> {
+        code: Integer,
+        data: ::Array[Vatsense::Rate],
+        success: bool
+      }
+    end
+  end
+end

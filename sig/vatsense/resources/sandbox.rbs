@@ -1,0 +1,11 @@
+module Vatsense
+  module Resources
+    class Sandbox
+      def generate_key: (
+        ?request_options: Vatsense::request_opts
+      ) -> Vatsense::Models::SandboxGenerateKeyResponse
+
+      def initialize: (client: Vatsense::Client) -> void
+    end
+  end
+end

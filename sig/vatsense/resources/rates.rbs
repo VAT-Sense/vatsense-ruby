@@ -1,0 +1,50 @@
+module Vatsense
+  module Resources
+    class Rates
+      def list: (
+        ?country_code: String,
+        ?eu: bool,
+        ?ip_address: String,
+        ?period: Time,
+        ?request_options: Vatsense::request_opts
+      ) -> Vatsense::Models::RateListResponse
+
+      def calculate_price: (
+        price: String,
+        tax_type: Vatsense::Models::RateCalculatePriceParams::tax_type,
+        ?country_code: String,
+        ?eu: bool,
+        ?ip_address: String,
+        ?province_code: String,
+        ?type: String,
+        ?request_options: Vatsense::request_opts
+      ) -> Vatsense::Models::RateCalculatePriceResponse
+
+      def details: (
+        ?country_code: String,
+        ?eu: bool,
+        ?ip_address: String,
+        ?period: Time,
+        ?province_code: String,
+        ?type: String,
+        ?request_options: Vatsense::request_opts
+      ) -> Vatsense::FindRate
+
+      def find: (
+        ?country_code: String,
+        ?eu: bool,
+        ?ip_address: String,
+        ?period: Time,
+        ?province_code: String,
+        ?type: String,
+        ?request_options: Vatsense::request_opts
+      ) -> Vatsense::FindRate
+
+      def list_types: (
+        ?request_options: Vatsense::request_opts
+      ) -> Vatsense::Models::RateListTypesResponse
+
+      def initialize: (client: Vatsense::Client) -> void
+    end
+  end
+end

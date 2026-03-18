@@ -51,7 +51,7 @@ jobs:
           URL: https://pkg.stainless.com/s
           AUTH: ${{ steps.github-oidc.outputs.github_token }}
           SHA: ${{ github.sha }}
-          PACKAGE_NAME: vat_sense
+          PACKAGE_NAME: vatsense
         run: ./scripts/utils/upload-artifact.sh
   lint:
     timeout-minutes: 10

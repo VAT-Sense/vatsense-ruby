@@ -110,4 +110,4 @@ walk_tree "$DIST_DIR"
 echo "::endgroup::"
 
 echo -e "${GREEN}Gem artifacts uploaded to Stainless storage.${NC}"
-echo -e "\033[32mInstallation: bundle remove vat-sense && bundle add vat-sense --source 'https://pkg.stainless.com/s/vat-sense-ruby/$SHA'\033[0m"
+echo -e "\033[32mInstallation: bundle remove vatsense && bundle add vatsense --source 'https://pkg.stainless.com/s/vat-sense-ruby/$SHA'\033[0m"

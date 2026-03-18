@@ -1,0 +1,14 @@
+module Vatsense
+  module Resources
+    class Validate
+      def check: (
+        ?eori_number: String,
+        ?requester_vat_number: String,
+        ?vat_number: String,
+        ?request_options: Vatsense::request_opts
+      ) -> Vatsense::Models::ValidateCheckResponse
+
+      def initialize: (client: Vatsense::Client) -> void
+    end
+  end
+end

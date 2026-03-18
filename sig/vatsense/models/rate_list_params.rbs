@@ -1,0 +1,44 @@
+module Vatsense
+  module Models
+    type rate_list_params =
+      { country_code: String, eu: bool, ip_address: String, period: Time }
+      & Vatsense::Internal::Type::request_parameters
+
+    class RateListParams < Vatsense::Internal::Type::BaseModel
+      extend Vatsense::Internal::Type::RequestParameters::Converter
+      include Vatsense::Internal::Type::RequestParameters
+
+      attr_reader country_code: String?
+
+      def country_code=: (String) -> String
+
+      attr_reader eu: bool?
+
+      def eu=: (bool) -> bool
+
+      attr_reader ip_address: String?
+
+      def ip_address=: (String) -> String
+
+      attr_reader period: Time?
+
+      def period=: (Time) -> Time
+
+      def initialize: (
+        ?country_code: String,
+        ?eu: bool,
+        ?ip_address: String,
+        ?period: Time,
+        ?request_options: Vatsense::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        country_code: String,
+        eu: bool,
+        ip_address: String,
+        period: Time,
+        request_options: Vatsense::RequestOptions
+      }
+    end
+  end
+end

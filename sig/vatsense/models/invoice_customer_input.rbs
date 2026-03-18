@@ -1,0 +1,62 @@
+module Vatsense
+  module Models
+    type invoice_customer_input =
+      {
+        name: String,
+        address: String,
+        company_number: String,
+        country_code: String,
+        email: String,
+        logo: String,
+        vat_number: String
+      }
+
+    class InvoiceCustomerInput < Vatsense::Internal::Type::BaseModel
+      attr_accessor name: String
+
+      attr_reader address: String?
+
+      def address=: (String) -> String
+
+      attr_reader company_number: String?
+
+      def company_number=: (String) -> String
+
+      attr_reader country_code: String?
+
+      def country_code=: (String) -> String
+
+      attr_reader email: String?
+
+      def email=: (String) -> String
+
+      attr_reader logo: String?
+
+      def logo=: (String) -> String
+
+      attr_reader vat_number: String?
+
+      def vat_number=: (String) -> String
+
+      def initialize: (
+        name: String,
+        ?address: String,
+        ?company_number: String,
+        ?country_code: String,
+        ?email: String,
+        ?logo: String,
+        ?vat_number: String
+      ) -> void
+
+      def to_hash: -> {
+        name: String,
+        address: String,
+        company_number: String,
+        country_code: String,
+        email: String,
+        logo: String,
+        vat_number: String
+      }
+    end
+  end
+end

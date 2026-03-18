@@ -1,0 +1,11 @@
+module Vatsense
+  module Resources
+    class Usage
+      def retrieve: (
+        ?request_options: Vatsense::request_opts
+      ) -> Vatsense::Models::UsageRetrieveResponse
+
+      def initialize: (client: Vatsense::Client) -> void
+    end
+  end
+end

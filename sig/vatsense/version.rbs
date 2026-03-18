@@ -1,0 +1,3 @@
+module Vatsense
+  VERSION: String
+end
