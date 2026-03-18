@@ -1,0 +1,90 @@
+module Vatsense
+  module Models
+    type country_list_provinces_response =
+      {
+        code: Integer,
+        data: ::Array[Vatsense::Models::CountryListProvincesResponse::Data],
+        success: bool
+      }
+
+    class CountryListProvincesResponse < Vatsense::Internal::Type::BaseModel
+      attr_reader code: Integer?
+
+      def code=: (Integer) -> Integer
+
+      attr_reader data: ::Array[Vatsense::Models::CountryListProvincesResponse::Data]?
+
+      def data=: (
+        ::Array[Vatsense::Models::CountryListProvincesResponse::Data]
+      ) -> ::Array[Vatsense::Models::CountryListProvincesResponse::Data]
+
+      attr_reader success: bool?
+
+      def success=: (bool) -> bool
+
+      def initialize: (
+        ?code: Integer,
+        ?data: ::Array[Vatsense::Models::CountryListProvincesResponse::Data],
+        ?success: bool
+      ) -> void
+
+      def to_hash: -> {
+        code: Integer,
+        data: ::Array[Vatsense::Models::CountryListProvincesResponse::Data],
+        success: bool
+      }
+
+      type data =
+        {
+          country_code: String,
+          object: Vatsense::Models::CountryListProvincesResponse::Data::object,
+          province_code: String,
+          province_name: String
+        }
+
+      class Data < Vatsense::Internal::Type::BaseModel
+        attr_reader country_code: String?
+
+        def country_code=: (String) -> String
+
+        attr_reader object: Vatsense::Models::CountryListProvincesResponse::Data::object?
+
+        def object=: (
+          Vatsense::Models::CountryListProvincesResponse::Data::object
+        ) -> Vatsense::Models::CountryListProvincesResponse::Data::object
+
+        attr_reader province_code: String?
+
+        def province_code=: (String) -> String
+
+        attr_reader province_name: String?
+
+        def province_name=: (String) -> String
+
+        def initialize: (
+          ?country_code: String,
+          ?object: Vatsense::Models::CountryListProvincesResponse::Data::object,
+          ?province_code: String,
+          ?province_name: String
+        ) -> void
+
+        def to_hash: -> {
+          country_code: String,
+          object: Vatsense::Models::CountryListProvincesResponse::Data::object,
+          province_code: String,
+          province_name: String
+        }
+
+        type object = :province
+
+        module Object
+          extend Vatsense::Internal::Type::Enum
+
+          PROVINCE: :province
+
+          def self?.values: -> ::Array[Vatsense::Models::CountryListProvincesResponse::Data::object]
+        end
+      end
+    end
+  end
+end

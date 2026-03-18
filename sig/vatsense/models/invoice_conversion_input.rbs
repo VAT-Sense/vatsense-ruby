@@ -1,0 +1,15 @@
+module Vatsense
+  module Models
+    type invoice_conversion_input = { currency_code: String, rate: Float }
+
+    class InvoiceConversionInput < Vatsense::Internal::Type::BaseModel
+      attr_accessor currency_code: String
+
+      attr_accessor rate: Float
+
+      def initialize: (currency_code: String, rate: Float) -> void
+
+      def to_hash: -> { currency_code: String, rate: Float }
+    end
+  end
+end

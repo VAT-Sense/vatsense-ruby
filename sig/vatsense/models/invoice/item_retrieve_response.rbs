@@ -1,0 +1,36 @@
+module Vatsense
+  module Models
+    module Invoice
+      type item_retrieve_response =
+        { code: Integer, data: Vatsense::Invoice::InvoiceItem, success: bool }
+
+      class ItemRetrieveResponse < Vatsense::Internal::Type::BaseModel
+        attr_reader code: Integer?
+
+        def code=: (Integer) -> Integer
+
+        attr_reader data: Vatsense::Invoice::InvoiceItem?
+
+        def data=: (
+          Vatsense::Invoice::InvoiceItem
+        ) -> Vatsense::Invoice::InvoiceItem
+
+        attr_reader success: bool?
+
+        def success=: (bool) -> bool
+
+        def initialize: (
+          ?code: Integer,
+          ?data: Vatsense::Invoice::InvoiceItem,
+          ?success: bool
+        ) -> void
+
+        def to_hash: -> {
+          code: Integer,
+          data: Vatsense::Invoice::InvoiceItem,
+          success: bool
+        }
+      end
+    end
+  end
+end

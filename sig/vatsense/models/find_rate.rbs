@@ -1,0 +1,32 @@
+module Vatsense
+  module Models
+    type find_rate =
+      { code: Integer, data: Vatsense::RateWithTaxRate, success: bool }
+
+    class FindRate < Vatsense::Internal::Type::BaseModel
+      attr_reader code: Integer?
+
+      def code=: (Integer) -> Integer
+
+      attr_reader data: Vatsense::RateWithTaxRate?
+
+      def data=: (Vatsense::RateWithTaxRate) -> Vatsense::RateWithTaxRate
+
+      attr_reader success: bool?
+
+      def success=: (bool) -> bool
+
+      def initialize: (
+        ?code: Integer,
+        ?data: Vatsense::RateWithTaxRate,
+        ?success: bool
+      ) -> void
+
+      def to_hash: -> {
+        code: Integer,
+        data: Vatsense::RateWithTaxRate,
+        success: bool
+      }
+    end
+  end
+end

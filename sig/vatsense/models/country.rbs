@@ -1,0 +1,76 @@
+module Vatsense
+  module Models
+    type country =
+      {
+        country_code: String,
+        country_name: String,
+        eu: bool,
+        latitude: Float,
+        longitude: Float,
+        object: Vatsense::Models::Country::object,
+        vat: bool
+      }
+
+    class Country < Vatsense::Internal::Type::BaseModel
+      attr_reader country_code: String?
+
+      def country_code=: (String) -> String
+
+      attr_reader country_name: String?
+
+      def country_name=: (String) -> String
+
+      attr_reader eu: bool?
+
+      def eu=: (bool) -> bool
+
+      attr_reader latitude: Float?
+
+      def latitude=: (Float) -> Float
+
+      attr_reader longitude: Float?
+
+      def longitude=: (Float) -> Float
+
+      attr_reader object: Vatsense::Models::Country::object?
+
+      def object=: (
+        Vatsense::Models::Country::object
+      ) -> Vatsense::Models::Country::object
+
+      attr_reader vat: bool?
+
+      def vat=: (bool) -> bool
+
+      def initialize: (
+        ?country_code: String,
+        ?country_name: String,
+        ?eu: bool,
+        ?latitude: Float,
+        ?longitude: Float,
+        ?object: Vatsense::Models::Country::object,
+        ?vat: bool
+      ) -> void
+
+      def to_hash: -> {
+        country_code: String,
+        country_name: String,
+        eu: bool,
+        latitude: Float,
+        longitude: Float,
+        object: Vatsense::Models::Country::object,
+        vat: bool
+      }
+
+      type object = :country
+
+      module Object
+        extend Vatsense::Internal::Type::Enum
+
+        COUNTRY: :country
+
+        def self?.values: -> ::Array[Vatsense::Models::Country::object]
+      end
+    end
+  end
+end

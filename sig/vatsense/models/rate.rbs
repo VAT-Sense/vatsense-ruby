@@ -1,0 +1,79 @@
+module Vatsense
+  module Models
+    type rate =
+      {
+        country_code: String,
+        country_name: String,
+        eu: bool,
+        object: Vatsense::Models::Rate::object,
+        other: ::Array[Vatsense::Rate::Other]?,
+        standard: Vatsense::TaxRate
+      }
+
+    class Rate < Vatsense::Internal::Type::BaseModel
+      attr_reader country_code: String?
+
+      def country_code=: (String) -> String
+
+      attr_reader country_name: String?
+
+      def country_name=: (String) -> String
+
+      attr_reader eu: bool?
+
+      def eu=: (bool) -> bool
+
+      attr_reader object: Vatsense::Models::Rate::object?
+
+      def object=: (
+        Vatsense::Models::Rate::object
+      ) -> Vatsense::Models::Rate::object
+
+      attr_accessor other: ::Array[Vatsense::Rate::Other]?
+
+      attr_reader standard: Vatsense::TaxRate?
+
+      def standard=: (Vatsense::TaxRate) -> Vatsense::TaxRate
+
+      def initialize: (
+        ?country_code: String,
+        ?country_name: String,
+        ?eu: bool,
+        ?object: Vatsense::Models::Rate::object,
+        ?other: ::Array[Vatsense::Rate::Other]?,
+        ?standard: Vatsense::TaxRate
+      ) -> void
+
+      def to_hash: -> {
+        country_code: String,
+        country_name: String,
+        eu: bool,
+        object: Vatsense::Models::Rate::object,
+        other: ::Array[Vatsense::Rate::Other]?,
+        standard: Vatsense::TaxRate
+      }
+
+      type object = :rate
+
+      module Object
+        extend Vatsense::Internal::Type::Enum
+
+        RATE: :rate
+
+        def self?.values: -> ::Array[Vatsense::Models::Rate::object]
+      end
+
+      type other = { province: String? }
+
+      class Other < Vatsense::Models::TaxRate
+        def province: -> String?
+
+        def province=: (String? _) -> String?
+
+        def initialize: (?province: String?) -> void
+
+        def to_hash: -> { province: String? }
+      end
+    end
+  end
+end

@@ -1,0 +1,154 @@
+module Vatsense
+  module Models
+    type create_invoice =
+      {
+        business: Vatsense::InvoiceBusinessInput,
+        currency_code: String,
+        date: String,
+        items: ::Array[Vatsense::Invoice::InvoiceItemInput],
+        tax_point: String,
+        conversion: Vatsense::InvoiceConversionInput,
+        customer: Vatsense::InvoiceCustomerInput,
+        has_vat: bool,
+        invoice_number: String,
+        is_copy: bool,
+        is_reverse_charge: bool,
+        notes: String,
+        pad_invoice_number: Integer,
+        serial: String,
+        tax_type: Vatsense::Models::CreateInvoice::tax_type,
+        type: Vatsense::Models::CreateInvoice::type_,
+        zero_rated: bool
+      }
+
+    class CreateInvoice < Vatsense::Internal::Type::BaseModel
+      attr_accessor business: Vatsense::InvoiceBusinessInput
+
+      attr_accessor currency_code: String
+
+      attr_accessor date: String
+
+      attr_accessor items: ::Array[Vatsense::Invoice::InvoiceItemInput]
+
+      attr_accessor tax_point: String
+
+      attr_reader conversion: Vatsense::InvoiceConversionInput?
+
+      def conversion=: (
+        Vatsense::InvoiceConversionInput
+      ) -> Vatsense::InvoiceConversionInput
+
+      attr_reader customer: Vatsense::InvoiceCustomerInput?
+
+      def customer=: (
+        Vatsense::InvoiceCustomerInput
+      ) -> Vatsense::InvoiceCustomerInput
+
+      attr_reader has_vat: bool?
+
+      def has_vat=: (bool) -> bool
+
+      attr_reader invoice_number: String?
+
+      def invoice_number=: (String) -> String
+
+      attr_reader is_copy: bool?
+
+      def is_copy=: (bool) -> bool
+
+      attr_reader is_reverse_charge: bool?
+
+      def is_reverse_charge=: (bool) -> bool
+
+      attr_reader notes: String?
+
+      def notes=: (String) -> String
+
+      attr_reader pad_invoice_number: Integer?
+
+      def pad_invoice_number=: (Integer) -> Integer
+
+      attr_reader serial: String?
+
+      def serial=: (String) -> String
+
+      attr_reader tax_type: Vatsense::Models::CreateInvoice::tax_type?
+
+      def tax_type=: (
+        Vatsense::Models::CreateInvoice::tax_type
+      ) -> Vatsense::Models::CreateInvoice::tax_type
+
+      attr_reader type: Vatsense::Models::CreateInvoice::type_?
+
+      def type=: (
+        Vatsense::Models::CreateInvoice::type_
+      ) -> Vatsense::Models::CreateInvoice::type_
+
+      attr_reader zero_rated: bool?
+
+      def zero_rated=: (bool) -> bool
+
+      def initialize: (
+        business: Vatsense::InvoiceBusinessInput,
+        currency_code: String,
+        date: String,
+        items: ::Array[Vatsense::Invoice::InvoiceItemInput],
+        tax_point: String,
+        ?conversion: Vatsense::InvoiceConversionInput,
+        ?customer: Vatsense::InvoiceCustomerInput,
+        ?has_vat: bool,
+        ?invoice_number: String,
+        ?is_copy: bool,
+        ?is_reverse_charge: bool,
+        ?notes: String,
+        ?pad_invoice_number: Integer,
+        ?serial: String,
+        ?tax_type: Vatsense::Models::CreateInvoice::tax_type,
+        ?type: Vatsense::Models::CreateInvoice::type_,
+        ?zero_rated: bool
+      ) -> void
+
+      def to_hash: -> {
+        business: Vatsense::InvoiceBusinessInput,
+        currency_code: String,
+        date: String,
+        items: ::Array[Vatsense::Invoice::InvoiceItemInput],
+        tax_point: String,
+        conversion: Vatsense::InvoiceConversionInput,
+        customer: Vatsense::InvoiceCustomerInput,
+        has_vat: bool,
+        invoice_number: String,
+        is_copy: bool,
+        is_reverse_charge: bool,
+        notes: String,
+        pad_invoice_number: Integer,
+        serial: String,
+        tax_type: Vatsense::Models::CreateInvoice::tax_type,
+        type: Vatsense::Models::CreateInvoice::type_,
+        zero_rated: bool
+      }
+
+      type tax_type = :incl | :excl
+
+      module TaxType
+        extend Vatsense::Internal::Type::Enum
+
+        INCL: :incl
+        EXCL: :excl
+
+        def self?.values: -> ::Array[Vatsense::Models::CreateInvoice::tax_type]
+      end
+
+      type type_ = :sale | :refund
+
+      module Type
+        extend Vatsense::Internal::Type::Enum
+
+        SALE: :sale
+        REFUND: :refund
+
+        def self?.values: -> ::Array[Vatsense::Models::CreateInvoice::type_]
+      end
+    end
+  end
+end

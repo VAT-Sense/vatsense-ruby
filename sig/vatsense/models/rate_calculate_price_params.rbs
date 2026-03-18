@@ -1,0 +1,77 @@
+module Vatsense
+  module Models
+    type rate_calculate_price_params =
+      {
+        price: String,
+        tax_type: Vatsense::Models::RateCalculatePriceParams::tax_type,
+        country_code: String,
+        eu: bool,
+        ip_address: String,
+        province_code: String,
+        type: String
+      }
+      & Vatsense::Internal::Type::request_parameters
+
+    class RateCalculatePriceParams < Vatsense::Internal::Type::BaseModel
+      extend Vatsense::Internal::Type::RequestParameters::Converter
+      include Vatsense::Internal::Type::RequestParameters
+
+      attr_accessor price: String
+
+      attr_accessor tax_type: Vatsense::Models::RateCalculatePriceParams::tax_type
+
+      attr_reader country_code: String?
+
+      def country_code=: (String) -> String
+
+      attr_reader eu: bool?
+
+      def eu=: (bool) -> bool
+
+      attr_reader ip_address: String?
+
+      def ip_address=: (String) -> String
+
+      attr_reader province_code: String?
+
+      def province_code=: (String) -> String
+
+      attr_reader type: String?
+
+      def type=: (String) -> String
+
+      def initialize: (
+        price: String,
+        tax_type: Vatsense::Models::RateCalculatePriceParams::tax_type,
+        ?country_code: String,
+        ?eu: bool,
+        ?ip_address: String,
+        ?province_code: String,
+        ?type: String,
+        ?request_options: Vatsense::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        price: String,
+        tax_type: Vatsense::Models::RateCalculatePriceParams::tax_type,
+        country_code: String,
+        eu: bool,
+        ip_address: String,
+        province_code: String,
+        type: String,
+        request_options: Vatsense::RequestOptions
+      }
+
+      type tax_type = :incl | :excl
+
+      module TaxType
+        extend Vatsense::Internal::Type::Enum
+
+        INCL: :incl
+        EXCL: :excl
+
+        def self?.values: -> ::Array[Vatsense::Models::RateCalculatePriceParams::tax_type]
+      end
+    end
+  end
+end

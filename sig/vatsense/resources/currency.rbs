@@ -1,0 +1,27 @@
+module Vatsense
+  module Resources
+    class Currency
+      def list: (
+        ?from: String,
+        ?to: Vatsense::Models::CurrencyListParams::to,
+        ?request_options: Vatsense::request_opts
+      ) -> Vatsense::Models::CurrencyListResponse
+
+      def calculate_vat_price: (
+        price: String,
+        tax_type: Vatsense::Models::CurrencyCalculateVatPriceParams::tax_type,
+        vat_rate: Float,
+        ?request_options: Vatsense::request_opts
+      ) -> Vatsense::Models::CurrencyCalculateVatPriceResponse
+
+      def convert: (
+        amount: String,
+        from: String,
+        to: Vatsense::Models::CurrencyConvertParams::to,
+        ?request_options: Vatsense::request_opts
+      ) -> Vatsense::Models::CurrencyConvertResponse
+
+      def initialize: (client: Vatsense::Client) -> void
+    end
+  end
+end

@@ -1,0 +1,15 @@
+module Vatsense
+  module Models
+    type sandbox_generate_key_params =
+      {  } & Vatsense::Internal::Type::request_parameters
+
+    class SandboxGenerateKeyParams < Vatsense::Internal::Type::BaseModel
+      extend Vatsense::Internal::Type::RequestParameters::Converter
+      include Vatsense::Internal::Type::RequestParameters
+
+      def initialize: (?request_options: Vatsense::request_opts) -> void
+
+      def to_hash: -> { request_options: Vatsense::RequestOptions }
+    end
+  end
+end

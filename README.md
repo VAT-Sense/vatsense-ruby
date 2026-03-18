@@ -1,12 +1,12 @@
 # Vat Sense Ruby API library
 
-The Vat Sense Ruby library provides convenient access to the Vat Sense REST API from any Ruby 3.2.0+ application. It ships with comprehensive types & docstrings in Yard, RBS, and RBI – [see below](https://github.com/stainless-sdks/vat-sense-ruby#Sorbet) for usage with Sorbet. The standard library's `net/http` is used as the HTTP transport, with connection pooling via the `connection_pool` gem.
+The Vat Sense Ruby library provides convenient access to the Vat Sense REST API from any Ruby 3.2.0+ application. It ships with comprehensive types & docstrings in Yard, RBS, and RBI – [see below](https://github.com/VAT-Sense/vatsense-ruby#Sorbet) for usage with Sorbet. The standard library's `net/http` is used as the HTTP transport, with connection pooling via the `connection_pool` gem.
 
 It is generated with [Stainless](https://www.stainless.com/).
 
 ## Documentation
 
-Documentation for releases of this gem can be found [on RubyDoc](https://gemdocs.org/gems/vat-sense).
+Documentation for releases of this gem can be found [on RubyDoc](https://gemdocs.org/gems/vatsense).
 
 The REST API documentation can be found on [vatsense.com](https://vatsense.com).
 
@@ -14,17 +14,21 @@ The REST API documentation can be found on [vatsense.com](https://vatsense.com).
 
 To use this gem, install via Bundler by adding the following to your application's `Gemfile`:
 
+<!-- x-release-please-start-version -->
+
 ```ruby
-gem "vat-sense", "~> 0.0.1"
+gem "vatsense", "~> 0.0.1"
 ```
+
+<!-- x-release-please-end -->
 
 ## Usage
 
 ```ruby
 require "bundler/setup"
-require "vat_sense"
+require "vatsense"
 
-vat_sense = VatSense::Client.new(
+vat_sense = Vatsense::Client.new(
   username: ENV["VAT_SENSE_USERNAME"], # This is the default and can be omitted
   password: ENV["VAT_SENSE_PASSWORD"] # This is the default and can be omitted
 )
@@ -36,17 +40,17 @@ puts(rates.code)
 
 ### Handling errors
 
-When the library is unable to connect to the API, or if the API returns a non-success status code (i.e., 4xx or 5xx response), a subclass of `VatSense::Errors::APIError` will be thrown:
+When the library is unable to connect to the API, or if the API returns a non-success status code (i.e., 4xx or 5xx response), a subclass of `Vatsense::Errors::APIError` will be thrown:
 
 ```ruby
 begin
   rate = vat_sense.rates.list
-rescue VatSense::Errors::APIConnectionError => e
+rescue Vatsense::Errors::APIConnectionError => e
   puts("The server could not be reached")
   puts(e.cause)  # an underlying Exception, likely raised within `net/http`
-rescue VatSense::Errors::RateLimitError => e
+rescue Vatsense::Errors::RateLimitError => e
   puts("A 429 status code was received; we should back off a bit.")
-rescue VatSense::Errors::APIStatusError => e
+rescue Vatsense::Errors::APIStatusError => e
   puts("Another non-200-range status code was received")
   puts(e.status)
 end
@@ -78,7 +82,7 @@ You can use the `max_retries` option to configure or disable this:
 
 ```ruby
 # Configure the default for all requests:
-vat_sense = VatSense::Client.new(
+vat_sense = Vatsense::Client.new(
   max_retries: 0 # default is 2
 )
 
@@ -92,7 +96,7 @@ By default, requests will time out after 60 seconds. You can use the timeout opt
 
 ```ruby
 # Configure the default for all requests:
-vat_sense = VatSense::Client.new(
+vat_sense = Vatsense::Client.new(
   timeout: nil # default is 60
 )
 
@@ -100,7 +104,7 @@ vat_sense = VatSense::Client.new(
 vat_sense.rates.list(request_options: {timeout: 5})
 ```
 
-On timeout, `VatSense::Errors::APITimeoutError` is raised.
+On timeout, `Vatsense::Errors::APITimeoutError` is raised.
 
 Note that requests that time out are retried by default.
 
@@ -108,7 +112,7 @@ Note that requests that time out are retried by default.
 
 ### BaseModel
 
-All parameter and response objects inherit from `VatSense::Internal::Type::BaseModel`, which provides several conveniences, including:
+All parameter and response objects inherit from `Vatsense::Internal::Type::BaseModel`, which provides several conveniences, including:
 
 1. All fields, including unknown ones, are accessible with `obj[:prop]` syntax, and can be destructured with `obj => {prop: prop}` or pattern-matching syntax.
 
@@ -159,9 +163,9 @@ response = client.request(
 
 ### Concurrency & connection pooling
 
-The `VatSense::Client` instances are threadsafe, but are only are fork-safe when there are no in-flight HTTP requests.
+The `Vatsense::Client` instances are threadsafe, but are only are fork-safe when there are no in-flight HTTP requests.
 
-Each instance of `VatSense::Client` has its own HTTP connection pool with a default size of 99. As such, we recommend instantiating the client once per application in most settings.
+Each instance of `Vatsense::Client` has its own HTTP connection pool with a default size of 99. As such, we recommend instantiating the client once per application in most settings.
 
 When all available connections from the pool are checked out, requests wait for a new connection to become available, with queue time counting towards the request timeout.
 
@@ -184,7 +188,7 @@ Or, equivalently:
 vat_sense.rates.list
 
 # You can also splat a full Params class:
-params = VatSense::RateListParams.new
+params = Vatsense::RateListParams.new
 vat_sense.rates.list(**params)
 ```
 
@@ -194,10 +198,10 @@ Since this library does not depend on `sorbet-runtime`, it cannot provide [`T::E
 
 ```ruby
 # :incl
-puts(VatSense::RateCalculatePriceParams::TaxType::INCL)
+puts(Vatsense::RateCalculatePriceParams::TaxType::INCL)
 
-# Revealed type: `T.all(VatSense::RateCalculatePriceParams::TaxType, Symbol)`
-T.reveal_type(VatSense::RateCalculatePriceParams::TaxType::INCL)
+# Revealed type: `T.all(Vatsense::RateCalculatePriceParams::TaxType, Symbol)`
+T.reveal_type(Vatsense::RateCalculatePriceParams::TaxType::INCL)
 ```
 
 Enum parameters have a "relaxed" type, so you can either pass in enum constants or their literal value:
@@ -205,7 +209,7 @@ Enum parameters have a "relaxed" type, so you can either pass in enum constants 
 ```ruby
 # Using the enum constants preserves the tagged type information:
 vat_sense.rates.calculate_price(
-  tax_type: VatSense::RateCalculatePriceParams::TaxType::INCL,
+  tax_type: Vatsense::RateCalculatePriceParams::TaxType::INCL,
   # …
 )
 
@@ -228,4 +232,4 @@ Ruby 3.2.0 or higher.
 
 ## Contributing
 
-See [the contributing documentation](https://github.com/stainless-sdks/vat-sense-ruby/tree/main/CONTRIBUTING.md).
+See [the contributing documentation](https://github.com/VAT-Sense/vatsense-ruby/tree/main/CONTRIBUTING.md).

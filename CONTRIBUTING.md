@@ -14,7 +14,7 @@ This will install all the required dependencies.
 
 ## Modifying/Adding code
 
-Most of the SDK is generated code. Modifications to code will be persisted between generations, but may result in merge conflicts between manual patches and changes from the generator. The generator will never modify the contents of `lib/vat_sense/helpers/` and `examples/` directory.
+Most of the SDK is generated code. Modifications to code will be persisted between generations, but may result in merge conflicts between manual patches and changes from the generator. The generator will never modify the contents of `lib/vatsense/helpers/` and `examples/` directory.
 
 ## Adding and running examples
 
@@ -24,7 +24,7 @@ All files in the `examples/` directory are not modified by the generator and can
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative "../lib/vat_sense"
+require_relative "../lib/vatsense"
 
 # ...
 ```
@@ -43,17 +43,17 @@ If you’d like to use the repository from source, you can either install from g
 To install via git in your `Gemfile`:
 
 ```ruby
-gem "vat-sense", git: "https://github.com/stainless-sdks/vat-sense-ruby"
+gem "vatsense", git: "https://github.com/VAT-Sense/vatsense-ruby"
 ```
 
 Alternatively, reference local copy of the repo:
 
 ```bash
-$ git clone -- 'https://github.com/stainless-sdks/vat-sense-ruby' '<path-to-repo>'
+$ git clone -- 'https://github.com/VAT-Sense/vatsense-ruby' '<path-to-repo>'
 ```
 
 ```ruby
-gem "vat-sense", path: "<path-to-repo>"
+gem "vatsense", path: "<path-to-repo>"
 ```
 
 ## Running commands
