@@ -1,234 +1,204 @@
-# Vat Sense Ruby API library
+# VAT Sense Ruby SDK
 
-The Vat Sense Ruby library provides convenient access to the Vat Sense REST API from any Ruby 3.2.0+ application. It ships with comprehensive types & docstrings in Yard, RBS, and RBI – [see below](https://github.com/VAT-Sense/vatsense-ruby#Sorbet) for usage with Sorbet. The standard library's `net/http` is used as the HTTP transport, with connection pooling via the `connection_pool` gem.
-
-It is generated with [Stainless](https://www.stainless.com/).
-
-## Documentation
-
-Documentation for releases of this gem can be found [on RubyDoc](https://gemdocs.org/gems/vatsense).
-
-The REST API documentation can be found on [vatsense.com](https://vatsense.com).
+The official Ruby library for the [VAT Sense](https://vatsense.com) REST API. Validate VAT/EORI numbers, look up VAT/GST rates, calculate prices, convert currencies, and generate VAT-compliant invoices.
 
 ## Installation
 
-To use this gem, install via Bundler by adding the following to your application's `Gemfile`:
-
-<!-- x-release-please-start-version -->
-
-```ruby
-gem "vatsense", "~> 0.1.0"
+```sh
+gem install vatsense
 ```
 
-<!-- x-release-please-end -->
-
-## Usage
+Or add to your Gemfile:
 
 ```ruby
-require "bundler/setup"
+gem "vatsense"
+```
+
+Requires Ruby 3.2.0+.
+
+## Quick start
+
+Create a client using your API key from the [VAT Sense dashboard](https://vatsense.com/dashboard). The API uses HTTP Basic Auth with `user` as the username and your API key as the password.
+
+```ruby
 require "vatsense"
 
-vat_sense = Vatsense::Client.new(
-  username: ENV["VAT_SENSE_USERNAME"], # This is the default and can be omitted
-  password: ENV["VAT_SENSE_PASSWORD"] # This is the default and can be omitted
+client = Vatsense::Client.new(
+  username: "user",
+  password: "your_api_key",
 )
-
-rates = vat_sense.rates.list
-
-puts(rates.code)
 ```
 
-### Handling errors
+You can also set the `VAT_SENSE_USERNAME` and `VAT_SENSE_PASSWORD` environment variables and the client will pick them up automatically.
 
-When the library is unable to connect to the API, or if the API returns a non-success status code (i.e., 4xx or 5xx response), a subclass of `Vatsense::Errors::APIError` will be thrown:
+### Validate a VAT number
 
 ```ruby
-begin
-  rate = vat_sense.rates.list
-rescue Vatsense::Errors::APIConnectionError => e
-  puts("The server could not be reached")
-  puts(e.cause)  # an underlying Exception, likely raised within `net/http`
-rescue Vatsense::Errors::RateLimitError => e
-  puts("A 429 status code was received; we should back off a bit.")
-rescue Vatsense::Errors::APIStatusError => e
-  puts("Another non-200-range status code was received")
-  puts(e.status)
+response = client.validate.check(vat_number: "GB288305674")
+
+if response.data.valid
+  puts response.data.company.company_name     # "BRITISH BROADCASTING CORPORATION"
+  puts response.data.company.company_address
+  puts response.data.company.country_code      # "GB"
 end
 ```
 
-Error codes are as follows:
+VAT validation works for the UK, EU, Australia, Norway, Switzerland, South Africa, and Brazil.
 
-| Cause            | Error Type                 |
-| ---------------- | -------------------------- |
-| HTTP 400         | `BadRequestError`          |
-| HTTP 401         | `AuthenticationError`      |
-| HTTP 403         | `PermissionDeniedError`    |
-| HTTP 404         | `NotFoundError`            |
-| HTTP 409         | `ConflictError`            |
-| HTTP 422         | `UnprocessableEntityError` |
-| HTTP 429         | `RateLimitError`           |
-| HTTP >= 500      | `InternalServerError`      |
-| Other HTTP error | `APIStatusError`           |
-| Timeout          | `APITimeoutError`          |
-| Network error    | `APIConnectionError`       |
-
-### Retries
-
-Certain errors will be automatically retried 2 times by default, with a short exponential backoff.
-
-Connection errors (for example, due to a network connectivity problem), 408 Request Timeout, 409 Conflict, 429 Rate Limit, >=500 Internal errors, and timeouts will all be retried by default.
-
-You can use the `max_retries` option to configure or disable this:
+### Validate an EORI number
 
 ```ruby
-# Configure the default for all requests:
-vat_sense = Vatsense::Client.new(
-  max_retries: 0 # default is 2
+response = client.validate.check(eori_number: "GB123456789000")
+
+if response.data.valid
+  puts response.data.company.company_name
+end
+```
+
+EORI validation is available for UK and EU numbers only.
+
+### Get a consultation number
+
+If you need an official consultation number from VIES (EU) or HMRC (UK), provide your own VAT number as the requester:
+
+```ruby
+response = client.validate.check(
+  vat_number: "FR12345678901",
+  requester_vat_number: "FR98765432101",
 )
 
-# Or, configure per-request:
-vat_sense.rates.list(request_options: {max_retries: 5})
+puts response.data.consultation_number
 ```
 
-### Timeouts
+> **Note:** GB requester numbers only work for GB validations, and EU requester numbers only work for EU validations. Cross-region requests are not supported.
 
-By default, requests will time out after 60 seconds. You can use the timeout option to configure or disable this:
+### Find the VAT rate for a country
 
 ```ruby
-# Configure the default for all requests:
-vat_sense = Vatsense::Client.new(
-  timeout: nil # default is 60
+rate = client.rates.find(country_code: "DE")
+
+puts rate.data.country_name       # "Germany"
+puts rate.data.tax_rate.rate      # 19.0
+puts rate.data.tax_rate.class_    # "standard"
+```
+
+### Find a rate for a specific product type
+
+```ruby
+rate = client.rates.find(country_code: "DE", type: "ebooks")
+
+puts rate.data.tax_rate.rate      # 7.0
+puts rate.data.tax_rate.class_    # "reduced"
+```
+
+### Find a rate by IP address
+
+Useful for determining the correct rate based on your customer's location:
+
+```ruby
+rate = client.rates.find(ip_address: "185.86.151.11")
+
+puts rate.data.country_code       # "GB"
+puts rate.data.tax_rate.rate      # 20.0
+```
+
+### Calculate a VAT-inclusive price
+
+```ruby
+result = client.rates.calculate_price(
+  price: "100.00",
+  tax_type: "excl",
+  country_code: "FR",
 )
 
-# Or, configure per-request:
-vat_sense.rates.list(request_options: {timeout: 5})
+puts result.data.vat_price.price_incl_vat  # Price including VAT
+puts result.data.vat_price.price_excl_vat  # Price excluding VAT
+puts result.data.vat_price.vat_rate        # VAT rate applied
+puts result.data.vat_price.vat             # VAT amount
 ```
 
-On timeout, `Vatsense::Errors::APITimeoutError` is raised.
-
-Note that requests that time out are retried by default.
-
-## Advanced concepts
-
-### BaseModel
-
-All parameter and response objects inherit from `Vatsense::Internal::Type::BaseModel`, which provides several conveniences, including:
-
-1. All fields, including unknown ones, are accessible with `obj[:prop]` syntax, and can be destructured with `obj => {prop: prop}` or pattern-matching syntax.
-
-2. Structural equivalence for equality; if two API calls return the same values, comparing the responses with == will return true.
-
-3. Both instances and the classes themselves can be pretty-printed.
-
-4. Helpers such as `#to_h`, `#deep_to_h`, `#to_json`, and `#to_yaml`.
-
-### Making custom or undocumented requests
-
-#### Undocumented properties
-
-You can send undocumented parameters to any endpoint, and read undocumented response properties, like so:
-
-Note: the `extra_` parameters of the same name overrides the documented parameters.
+### List all VAT rates
 
 ```ruby
-rates =
-  vat_sense.rates.list(
-    request_options: {
-      extra_query: {my_query_parameter: value},
-      extra_body: {my_body_parameter: value},
-      extra_headers: {"my-header": value}
-    }
-  )
+rates = client.rates.list
 
-puts(rates[:my_undocumented_property])
+rates.data.each do |rate|
+  puts "#{rate.country_code}: #{rate.country_name}"
+end
+
+# Filter to EU countries only
+eu_rates = client.rates.list(eu: true)
 ```
 
-#### Undocumented request params
+## Handling errors
 
-If you want to explicitly send an extra param, you can do so with the `extra_query`, `extra_body`, and `extra_headers` under the `request_options:` parameter when making a request, as seen in the examples above.
-
-#### Undocumented endpoints
-
-To make requests to undocumented endpoints while retaining the benefit of auth, retries, and so on, you can make requests using `client.request`, like so:
+When the API returns an error, the library raises a typed exception:
 
 ```ruby
-response = client.request(
-  method: :post,
-  path: '/undocumented/endpoint',
-  query: {"dog": "woof"},
-  headers: {"useful-header": "interesting-value"},
-  body: {"hello": "world"}
+begin
+  response = client.validate.check(vat_number: "GB288305674")
+rescue Vatsense::Errors::APIConnectionError => e
+  # Network issue, could not reach the API
+  puts e.message
+rescue Vatsense::Errors::RateLimitError => e
+  # 429: Too many requests (300/min general limit, 3/sec for UK validation)
+  puts "Rate limited, try again shortly"
+rescue Vatsense::Errors::APIStatusError => e
+  # Covers all other HTTP errors
+  puts e.status
+  puts e.message
+end
+```
+
+A `412` error means the upstream validation service (VIES, HMRC, etc.) is temporarily unavailable. These requests do not count against your usage quota.
+
+| Status Code | Error Type                                  |
+| ----------- | ------------------------------------------- |
+| 400         | `Vatsense::Errors::BadRequestError`         |
+| 401         | `Vatsense::Errors::AuthenticationError`     |
+| 404         | `Vatsense::Errors::NotFoundError`           |
+| 409         | `Vatsense::Errors::ConflictError`           |
+| 429         | `Vatsense::Errors::RateLimitError`          |
+| >= 500      | `Vatsense::Errors::InternalServerError`     |
+| N/A         | `Vatsense::Errors::APIConnectionError`      |
+
+## Retries
+
+Failed requests are automatically retried up to 2 times with exponential backoff. This includes connection errors, timeouts, 429, and 5xx responses.
+
+```ruby
+# Disable retries
+client = Vatsense::Client.new(
+  username: "user",
+  password: "your_api_key",
+  max_retries: 0,
+)
+
+# Or configure per request
+response = client.validate.check(
+  vat_number: "GB288305674",
+  request_options: { max_retries: 5 },
 )
 ```
 
-### Concurrency & connection pooling
+## Available services
 
-The `Vatsense::Client` instances are threadsafe, but are only are fork-safe when there are no in-flight HTTP requests.
+| Service               | Description                                     |
+| --------------------- | ----------------------------------------------- |
+| `client.validate`     | Validate VAT and EORI numbers                   |
+| `client.rates`        | VAT/GST rate lookups, price calculations         |
+| `client.countries`    | Country data and province lookups                |
+| `client.currency`     | Exchange rates and currency conversion           |
+| `client.invoice`      | Create and manage VAT-compliant invoices         |
+| `client.usage`        | Check your API usage                             |
 
-Each instance of `Vatsense::Client` has its own HTTP connection pool with a default size of 99. As such, we recommend instantiating the client once per application in most settings.
+## Documentation
 
-When all available connections from the pool are checked out, requests wait for a new connection to become available, with queue time counting towards the request timeout.
-
-Unless otherwise specified, other classes in the SDK do not have locks protecting their underlying data structure.
-
-## Sorbet
-
-This library provides comprehensive [RBI](https://sorbet.org/docs/rbi) definitions, and has no dependency on sorbet-runtime.
-
-You can provide typesafe request parameters like so:
-
-```ruby
-vat_sense.rates.list
-```
-
-Or, equivalently:
-
-```ruby
-# Hashes work, but are not typesafe:
-vat_sense.rates.list
-
-# You can also splat a full Params class:
-params = Vatsense::RateListParams.new
-vat_sense.rates.list(**params)
-```
-
-### Enums
-
-Since this library does not depend on `sorbet-runtime`, it cannot provide [`T::Enum`](https://sorbet.org/docs/tenum) instances. Instead, we provide "tagged symbols" instead, which is always a primitive at runtime:
-
-```ruby
-# :incl
-puts(Vatsense::RateCalculatePriceParams::TaxType::INCL)
-
-# Revealed type: `T.all(Vatsense::RateCalculatePriceParams::TaxType, Symbol)`
-T.reveal_type(Vatsense::RateCalculatePriceParams::TaxType::INCL)
-```
-
-Enum parameters have a "relaxed" type, so you can either pass in enum constants or their literal value:
-
-```ruby
-# Using the enum constants preserves the tagged type information:
-vat_sense.rates.calculate_price(
-  tax_type: Vatsense::RateCalculatePriceParams::TaxType::INCL,
-  # …
-)
-
-# Literal values are also permissible:
-vat_sense.rates.calculate_price(
-  tax_type: :incl,
-  # …
-)
-```
+Full API documentation is available at [vatsense.com/documentation](https://vatsense.com/documentation).
 
 ## Versioning
 
 This package follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions. As the library is in initial development and has a major version of `0`, APIs may change at any time.
-
-This package considers improvements to the (non-runtime) `*.rbi` and `*.rbs` type definitions to be non-breaking changes.
-
-## Requirements
-
-Ruby 3.2.0 or higher.
 
 ## Contributing
 
