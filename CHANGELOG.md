@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.2 (2026-05-06)
+
+Full Changelog: [v0.1.1...v0.1.2](https://github.com/VAT-Sense/vatsense-ruby/compare/v0.1.1...v0.1.2)
+
+### Bug Fixes
+
+* multipart encoding for file arrays ([2dc86da](https://github.com/VAT-Sense/vatsense-ruby/commit/2dc86da62c4a9698622242616f0f27878155d035))
+
 ## 0.1.1 (2026-04-01)
 
 Full Changelog: [v0.1.0...v0.1.1](https://github.com/VAT-Sense/vatsense-ruby/compare/v0.1.0...v0.1.1)
