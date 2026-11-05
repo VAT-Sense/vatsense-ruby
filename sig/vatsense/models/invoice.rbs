@@ -23,7 +23,8 @@ module Vatsense
         totals: Vatsense::InvoiceAPI::Totals,
         type: Vatsense::Models::InvoiceAPI::type_,
         updated: Time,
-        zero_rated: bool
+        zero_rated: bool,
+        original_invoice_id: String
       }
 
     class InvoiceAPI < Vatsense::Internal::Type::BaseModel
@@ -91,6 +92,10 @@ module Vatsense
         Vatsense::Models::InvoiceAPI::object
       ) -> Vatsense::Models::InvoiceAPI::object
 
+      attr_reader original_invoice_id: String?
+
+      def original_invoice_id=: (String) -> String
+
       attr_reader tax_point: String?
 
       def tax_point=: (String) -> String
@@ -138,6 +143,7 @@ module Vatsense
         ?notes: String?,
         ?num_items: Integer,
         ?object: Vatsense::Models::InvoiceAPI::object,
+        ?original_invoice_id: String,
         ?tax_point: String,
         ?tax_type: Vatsense::Models::InvoiceAPI::tax_type,
         ?totals: Vatsense::InvoiceAPI::Totals,
@@ -163,6 +169,7 @@ module Vatsense
         notes: String?,
         num_items: Integer,
         object: Vatsense::Models::InvoiceAPI::object,
+        original_invoice_id: String,
         tax_point: String,
         tax_type: Vatsense::Models::InvoiceAPI::tax_type,
         totals: Vatsense::InvoiceAPI::Totals,

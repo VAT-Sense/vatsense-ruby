@@ -38,6 +38,7 @@ module Vatsense
         {
           company: Vatsense::Models::ValidateCheckResponse::Data::company,
           consultation_number: String?,
+          match: Vatsense::Models::ValidateCheckResponse::Data::Match,
           valid: bool
         }
 
@@ -50,6 +51,12 @@ module Vatsense
 
         attr_accessor consultation_number: String?
 
+        attr_reader match: Vatsense::Models::ValidateCheckResponse::Data::Match?
+
+        def match=: (
+          Vatsense::Models::ValidateCheckResponse::Data::Match
+        ) -> Vatsense::Models::ValidateCheckResponse::Data::Match
+
         attr_reader valid: bool?
 
         def valid=: (bool) -> bool
@@ -57,14 +64,65 @@ module Vatsense
         def initialize: (
           ?company: Vatsense::Models::ValidateCheckResponse::Data::company,
           ?consultation_number: String?,
+          ?match: Vatsense::Models::ValidateCheckResponse::Data::Match,
           ?valid: bool
         ) -> void
 
         def to_hash: -> {
           company: Vatsense::Models::ValidateCheckResponse::Data::company,
           consultation_number: String?,
+          match: Vatsense::Models::ValidateCheckResponse::Data::Match,
           valid: bool
         }
+
+        type match =
+          {
+            fields: ::Hash[Symbol, Vatsense::Models::ValidateCheckResponse::Data::Match::Field],
+            result: String,
+            score: Integer?
+          }
+
+        class Match < Vatsense::Internal::Type::BaseModel
+          attr_reader fields: ::Hash[Symbol, Vatsense::Models::ValidateCheckResponse::Data::Match::Field]?
+
+          def fields=: (
+            ::Hash[Symbol, Vatsense::Models::ValidateCheckResponse::Data::Match::Field]
+          ) -> ::Hash[Symbol, Vatsense::Models::ValidateCheckResponse::Data::Match::Field]
+
+          attr_reader result: String?
+
+          def result=: (String) -> String
+
+          attr_accessor score: Integer?
+
+          def initialize: (
+            ?fields: ::Hash[Symbol, Vatsense::Models::ValidateCheckResponse::Data::Match::Field],
+            ?result: String,
+            ?score: Integer?
+          ) -> void
+
+          def to_hash: -> {
+            fields: ::Hash[Symbol, Vatsense::Models::ValidateCheckResponse::Data::Match::Field],
+            result: String,
+            score: Integer?
+          }
+
+          type field = { result: String, score: Integer?, vies: String? }
+
+          class Field < Vatsense::Internal::Type::BaseModel
+            attr_reader result: String?
+
+            def result=: (String) -> String
+
+            attr_accessor score: Integer?
+
+            attr_accessor vies: String?
+
+            def initialize: (?result: String, ?score: Integer?, ?vies: String?) -> void
+
+            def to_hash: -> { result: String, score: Integer?, vies: String? }
+          end
+        end
 
         type company =
           Vatsense::Models::ValidateCheckResponse::Data::Company::ValidationCompany

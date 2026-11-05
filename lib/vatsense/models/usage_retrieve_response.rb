@@ -43,13 +43,13 @@ module Vatsense
           optional :remaining, Integer
 
           # @!attribute total
-          #   Total requests allowed on your plan.
+          #   Requests available in the current billing period.
           #
           #   @return [Integer, nil]
           optional :total, Integer
 
           # @!attribute used
-          #   Requests used in the last 30 days.
+          #   Requests used so far in the current billing period.
           #
           #   @return [Integer, nil]
           optional :used, Integer
@@ -57,9 +57,9 @@ module Vatsense
           # @!method initialize(remaining: nil, total: nil, used: nil)
           #   @param remaining [Integer] Requests remaining before the limit is reached.
           #
-          #   @param total [Integer] Total requests allowed on your plan.
+          #   @param total [Integer] Requests available in the current billing period.
           #
-          #   @param used [Integer] Requests used in the last 30 days.
+          #   @param used [Integer] Requests used so far in the current billing period.
         end
       end
     end

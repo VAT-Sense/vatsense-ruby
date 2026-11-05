@@ -112,14 +112,14 @@ module Vatsense
           sig { params(remaining: Integer).void }
           attr_writer :remaining
 
-          # Total requests allowed on your plan.
+          # Requests available in the current billing period.
           sig { returns(T.nilable(Integer)) }
           attr_reader :total
 
           sig { params(total: Integer).void }
           attr_writer :total
 
-          # Requests used in the last 30 days.
+          # Requests used so far in the current billing period.
           sig { returns(T.nilable(Integer)) }
           attr_reader :used
 
@@ -134,9 +134,9 @@ module Vatsense
           def self.new(
             # Requests remaining before the limit is reached.
             remaining: nil,
-            # Total requests allowed on your plan.
+            # Requests available in the current billing period.
             total: nil,
-            # Requests used in the last 30 days.
+            # Requests used so far in the current billing period.
             used: nil
           )
           end

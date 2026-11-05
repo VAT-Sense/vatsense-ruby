@@ -41,12 +41,23 @@ module Vatsense
       sig { params(period: Time).void }
       attr_writer :period
 
+      # Whether to list province and territory rates (rate objects that carry a
+      # `province` property) in each country's `other` list. Pass false to leave them
+      # out, so only country-wide rates are listed; true, or omitting the parameter,
+      # lists them as before. The `standard` rate is always the country-wide one.
+      sig { returns(T.nilable(T::Boolean)) }
+      attr_reader :provinces
+
+      sig { params(provinces: T::Boolean).void }
+      attr_writer :provinces
+
       sig do
         params(
           country_code: String,
           eu: T::Boolean,
           ip_address: String,
           period: Time,
+          provinces: T::Boolean,
           request_options: Vatsense::RequestOptions::OrHash
         ).returns(T.attached_class)
       end
@@ -61,6 +72,7 @@ module Vatsense
         # A historical date to retrieve rates for (format "YYYY-MM-DD HH:MM:SS"). Must be
         # a past date.
         period: nil,
+        provinces: nil,
         request_options: {}
       )
       end
@@ -72,6 +84,7 @@ module Vatsense
             eu: T::Boolean,
             ip_address: String,
             period: Time,
+            provinces: T::Boolean,
             request_options: Vatsense::RequestOptions
           }
         )

@@ -3,6 +3,11 @@ module Vatsense
     class Validate
       def check: (
         ?eori_number: String,
+        ?match_address: String,
+        ?match_city: String,
+        ?match_company_name: String,
+        ?match_postcode: String,
+        ?match_street: String,
         ?requester_vat_number: String,
         ?vat_number: String,
         ?request_options: Vatsense::request_opts

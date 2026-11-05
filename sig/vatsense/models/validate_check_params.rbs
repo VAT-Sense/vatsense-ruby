@@ -1,7 +1,7 @@
 module Vatsense
   module Models
     type validate_check_params =
-      { eori_number: String, requester_vat_number: String, vat_number: String }
+      { eori_number: String, requester_vat_number: String, vat_number: String, match_address: String, match_city: String, match_company_name: String, match_postcode: String, match_street: String }
       & Vatsense::Internal::Type::request_parameters
 
     class ValidateCheckParams < Vatsense::Internal::Type::BaseModel
@@ -11,6 +11,26 @@ module Vatsense
       attr_reader eori_number: String?
 
       def eori_number=: (String) -> String
+
+      attr_reader match_address: String?
+
+      def match_address=: (String) -> String
+
+      attr_reader match_city: String?
+
+      def match_city=: (String) -> String
+
+      attr_reader match_company_name: String?
+
+      def match_company_name=: (String) -> String
+
+      attr_reader match_postcode: String?
+
+      def match_postcode=: (String) -> String
+
+      attr_reader match_street: String?
+
+      def match_street=: (String) -> String
 
       attr_reader requester_vat_number: String?
 
@@ -22,6 +42,11 @@ module Vatsense
 
       def initialize: (
         ?eori_number: String,
+        ?match_address: String,
+        ?match_city: String,
+        ?match_company_name: String,
+        ?match_postcode: String,
+        ?match_street: String,
         ?requester_vat_number: String,
         ?vat_number: String,
         ?request_options: Vatsense::request_opts
@@ -29,6 +54,11 @@ module Vatsense
 
       def to_hash: -> {
         eori_number: String,
+        match_address: String,
+        match_city: String,
+        match_company_name: String,
+        match_postcode: String,
+        match_street: String,
         requester_vat_number: String,
         vat_number: String,
         request_options: Vatsense::RequestOptions

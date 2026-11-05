@@ -33,7 +33,16 @@ module Vatsense
       #   @return [Time, nil]
       optional :period, Time
 
-      # @!method initialize(country_code: nil, eu: nil, ip_address: nil, period: nil, request_options: {})
+      # @!attribute provinces
+      #   Whether to list province and territory rates (rate objects that carry a
+      #   `province` property) in each country's `other` list. Pass false to leave them
+      #   out, so only country-wide rates are listed; true, or omitting the parameter,
+      #   lists them as before. The `standard` rate is always the country-wide one.
+      #
+      #   @return [Boolean, nil]
+      optional :provinces, Vatsense::Internal::Type::Boolean
+
+      # @!method initialize(country_code: nil, eu: nil, ip_address: nil, period: nil, provinces: nil, request_options: {})
       #   Some parameter documentations has been truncated, see
       #   {Vatsense::Models::RateListParams} for more details.
       #

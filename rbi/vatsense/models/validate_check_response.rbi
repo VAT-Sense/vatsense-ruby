@@ -87,6 +87,19 @@ module Vatsense
         sig { returns(T.nilable(String)) }
         attr_accessor :consultation_number
 
+        # Only when a `match_` parameter was sent.
+        sig do
+          returns(T.nilable(Vatsense::Models::ValidateCheckResponse::Data::Match))
+        end
+        attr_reader :match
+
+        sig do
+          params(
+            match: Vatsense::Models::ValidateCheckResponse::Data::Match::OrHash
+          ).void
+        end
+        attr_writer :match
+
         # Whether the VAT/EORI number is valid.
         sig { returns(T.nilable(T::Boolean)) }
         attr_reader :valid
@@ -102,6 +115,7 @@ module Vatsense
                 Vatsense::Models::ValidateCheckResponse::Data::Company::EoriValidationCompany::OrHash
               ),
             consultation_number: T.nilable(String),
+            match: Vatsense::Models::ValidateCheckResponse::Data::Match::OrHash,
             valid: T::Boolean
           ).returns(T.attached_class)
         end
@@ -110,6 +124,8 @@ module Vatsense
           # Official consultation number (only returned when requester_vat_number is
           # provided).
           consultation_number: nil,
+          # Only when a `match_` parameter was sent.
+          match: nil,
           # Whether the VAT/EORI number is valid.
           valid: nil
         )
@@ -121,11 +137,135 @@ module Vatsense
               company:
                 Vatsense::Models::ValidateCheckResponse::Data::Company::Variants,
               consultation_number: T.nilable(String),
+              match: Vatsense::Models::ValidateCheckResponse::Data::Match,
               valid: T::Boolean
             }
           )
         end
         def to_hash
+        end
+
+        class Match < Vatsense::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Vatsense::Models::ValidateCheckResponse::Data::Match,
+                Vatsense::Internal::AnyHash
+              )
+            end
+
+          # One entry for each detail sent (company_name, address, street, postcode,
+          # city).
+          sig do
+            returns(
+              T.nilable(
+                T::Hash[
+                  Symbol,
+                  Vatsense::Models::ValidateCheckResponse::Data::Match::Field
+                ]
+              )
+            )
+          end
+          attr_reader :fields
+
+          sig do
+            params(
+              fields:
+                T::Hash[
+                  Symbol,
+                  Vatsense::Models::ValidateCheckResponse::Data::Match::Field::OrHash
+                ]
+            ).void
+          end
+          attr_writer :fields
+
+          # likely, possible, unlikely or not_applicable.
+          sig { returns(T.nilable(String)) }
+          attr_reader :result
+
+          sig { params(result: String).void }
+          attr_writer :result
+
+          # The average of the details sent, with the name counting twice.
+          sig { returns(T.nilable(Integer)) }
+          attr_accessor :score
+
+          sig do
+            params(
+              fields:
+                T::Hash[
+                  Symbol,
+                  Vatsense::Models::ValidateCheckResponse::Data::Match::Field::OrHash
+                ],
+              result: String,
+              score: T.nilable(Integer)
+            ).returns(T.attached_class)
+          end
+          def self.new(fields: nil, result: nil, score: nil)
+          end
+
+          sig do
+            override.returns(
+              {
+                fields:
+                  T::Hash[
+                    Symbol,
+                    Vatsense::Models::ValidateCheckResponse::Data::Match::Field
+                  ],
+                result: String,
+                score: T.nilable(Integer)
+              }
+            )
+          end
+          def to_hash
+          end
+
+          class Field < Vatsense::Internal::Type::BaseModel
+            OrHash =
+              T.type_alias do
+                T.any(
+                  Vatsense::Models::ValidateCheckResponse::Data::Match::Field,
+                  Vatsense::Internal::AnyHash
+                )
+              end
+
+            # match, partial, no_match or not_applicable.
+            sig { returns(T.nilable(String)) }
+            attr_reader :result
+
+            sig { params(result: String).void }
+            attr_writer :result
+
+            sig { returns(T.nilable(Integer)) }
+            attr_accessor :score
+
+            # VIES's own answer for that detail on a live EU check; nil when VIES said
+            # nothing.
+            sig { returns(T.nilable(String)) }
+            attr_accessor :vies
+
+            sig do
+              params(
+                result: String,
+                score: T.nilable(Integer),
+                vies: T.nilable(String)
+              ).returns(T.attached_class)
+            end
+            def self.new(result: nil, score: nil, vies: nil)
+            end
+
+            sig do
+              override.returns(
+                {
+                  result: String,
+                  score: T.nilable(Integer),
+                  vies: T.nilable(String)
+                }
+              )
+            end
+            def to_hash
+            end
+          end
         end
 
         module Company
