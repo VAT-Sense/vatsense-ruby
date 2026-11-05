@@ -16,6 +16,8 @@ module Vatsense
         ?is_copy: bool,
         ?is_reverse_charge: bool,
         ?notes: String,
+        ?original_invoice_id: String?,
+        ?idempotency_key: String,
         ?pad_invoice_number: Integer,
         ?serial: String,
         ?tax_type: Vatsense::Models::CreateInvoice::tax_type,

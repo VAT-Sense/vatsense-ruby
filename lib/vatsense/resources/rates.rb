@@ -13,7 +13,7 @@ module Vatsense
       #
       # You can optionally filter by country code, IP address, or EU membership.
       #
-      # @overload list(country_code: nil, eu: nil, ip_address: nil, period: nil, request_options: {})
+      # @overload list(country_code: nil, eu: nil, ip_address: nil, period: nil, provinces: nil, request_options: {})
       #
       # @param country_code [String] A 2-character ISO 3166-1 alpha-2 country code (e.g. "GB", "FR").
       #

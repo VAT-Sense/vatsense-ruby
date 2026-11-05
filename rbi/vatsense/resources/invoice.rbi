@@ -26,6 +26,8 @@ module Vatsense
           is_copy: T::Boolean,
           is_reverse_charge: T::Boolean,
           notes: String,
+          original_invoice_id: T.nilable(String),
+          idempotency_key: String,
           pad_invoice_number: Integer,
           serial: String,
           tax_type: Vatsense::CreateInvoice::TaxType::OrSymbol,
@@ -56,6 +58,8 @@ module Vatsense
         is_reverse_charge: nil,
         # Any additional notes for the invoice.
         notes: nil,
+        original_invoice_id: nil,
+        idempotency_key: nil,
         # Pad the auto-generated invoice number with leading zeros to this length.
         pad_invoice_number: nil,
         # A serial prepended to the auto-generated invoice number. Each unique serial has

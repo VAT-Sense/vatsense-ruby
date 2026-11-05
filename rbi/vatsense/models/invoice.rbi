@@ -68,7 +68,7 @@ module Vatsense
       sig { params(invoice_number: String).void }
       attr_writer :invoice_number
 
-      # Unique URL to view the invoice. Append "/pdf" to download a PDF copy.
+      # Unique, unguessable URL to view the invoice. Append "/pdf" for a PDF copy.
       sig { returns(T.nilable(String)) }
       attr_reader :invoice_url
 
@@ -109,6 +109,13 @@ module Vatsense
 
       sig { params(object: Vatsense::InvoiceAPI::Object::OrSymbol).void }
       attr_writer :object
+
+      # On a credit note that names the sale invoice it credits: that invoice's ID.
+      sig { returns(T.nilable(String)) }
+      attr_reader :original_invoice_id
+
+      sig { params(original_invoice_id: String).void }
+      attr_writer :original_invoice_id
 
       sig { returns(T.nilable(String)) }
       attr_reader :tax_point
@@ -164,6 +171,7 @@ module Vatsense
           notes: T.nilable(String),
           num_items: Integer,
           object: Vatsense::InvoiceAPI::Object::OrSymbol,
+          original_invoice_id: String,
           tax_point: String,
           tax_type: Vatsense::InvoiceAPI::TaxType::OrSymbol,
           totals: Vatsense::InvoiceAPI::Totals::OrHash,
@@ -182,7 +190,7 @@ module Vatsense
         date: nil,
         has_vat: nil,
         invoice_number: nil,
-        # Unique URL to view the invoice. Append "/pdf" to download a PDF copy.
+        # Unique, unguessable URL to view the invoice. Append "/pdf" for a PDF copy.
         invoice_url: nil,
         is_copy: nil,
         is_reverse_charge: nil,
@@ -190,6 +198,7 @@ module Vatsense
         notes: nil,
         num_items: nil,
         object: nil,
+        original_invoice_id: nil,
         tax_point: nil,
         tax_type: nil,
         totals: nil,
@@ -218,6 +227,7 @@ module Vatsense
             notes: T.nilable(String),
             num_items: Integer,
             object: Vatsense::InvoiceAPI::Object::TaggedSymbol,
+            original_invoice_id: String,
             tax_point: String,
             tax_type: Vatsense::InvoiceAPI::TaxType::TaggedSymbol,
             totals: Vatsense::InvoiceAPI::Totals,

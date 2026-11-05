@@ -15,6 +15,7 @@ module Vatsense
           eu: T::Boolean,
           ip_address: String,
           period: Time,
+          provinces: T::Boolean,
           request_options: Vatsense::RequestOptions::OrHash
         ).returns(Vatsense::Models::RateListResponse)
       end
@@ -29,6 +30,7 @@ module Vatsense
         # A historical date to retrieve rates for (format "YYYY-MM-DD HH:MM:SS"). Must be
         # a past date.
         period: nil,
+        provinces: nil,
         request_options: {}
       )
       end

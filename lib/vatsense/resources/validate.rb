@@ -16,11 +16,16 @@ module Vatsense
       # **EORI validation** checks against UK and EU records only.
       #
       # If the external validation service is temporarily unavailable, the API returns a
-      # `412` error and the request does not count against your usage quota.
+      # `412` error and the request does not count against your usage quota. It also
+      # returns the `412`, uncounted, when a check takes longer than 55 seconds for a
+      # number checked with VIES or the EU EORI service, or 25 seconds for any other.
+      # With a webhook endpoint taking `validation.completed`, a number that got the
+      # `412` keeps being checked and the answer is sent by webhook
+      # (https://vatsense.com/documentation#webhooks).
       #
       # Provide either `vat_number` or `eori_number`, but not both.
       #
-      # @overload check(eori_number: nil, requester_vat_number: nil, vat_number: nil, request_options: {})
+      # @overload check(eori_number: nil, requester_vat_number: nil, vat_number: nil, match_address: nil, match_city: nil, match_company_name: nil, match_postcode: nil, match_street: nil, request_options: {})
       #
       # @param eori_number [String] The EORI number to validate. Must include the leading 2-character
       #

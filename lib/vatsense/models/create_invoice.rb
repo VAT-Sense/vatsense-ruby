@@ -72,6 +72,14 @@ module Vatsense
       #   @return [String, nil]
       optional :notes, String
 
+      # @!attribute original_invoice_id
+      #   For a credit note: the ID of your own sale invoice it credits. Only a `refund`
+      #   can name one; anything else gets `400` "Invalid Original Invoice ID". The credit
+      #   note is then headed "Credit note". Used on create only.
+      #
+      #   @return [String, nil]
+      optional :original_invoice_id, String, nil?: true
+
       # @!attribute pad_invoice_number
       #   Pad the auto-generated invoice number with leading zeros to this length.
       #
@@ -103,7 +111,7 @@ module Vatsense
       #   @return [Boolean, nil]
       optional :zero_rated, Vatsense::Internal::Type::Boolean
 
-      # @!method initialize(business:, currency_code:, date:, items:, tax_point:, conversion: nil, customer: nil, has_vat: nil, invoice_number: nil, is_copy: nil, is_reverse_charge: nil, notes: nil, pad_invoice_number: nil, serial: nil, tax_type: nil, type: nil, zero_rated: nil)
+      # @!method initialize(business:, currency_code:, date:, items:, tax_point:, conversion: nil, customer: nil, has_vat: nil, invoice_number: nil, is_copy: nil, is_reverse_charge: nil, notes: nil, pad_invoice_number: nil, serial: nil, tax_type: nil, type: nil, zero_rated: nil, original_invoice_id: nil)
       #   Some parameter documentations has been truncated, see
       #   {Vatsense::Models::CreateInvoice} for more details.
       #

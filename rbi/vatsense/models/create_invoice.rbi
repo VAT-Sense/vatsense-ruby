@@ -77,6 +77,12 @@ module Vatsense
       sig { params(notes: String).void }
       attr_writer :notes
 
+      # For a credit note: the ID of your own sale invoice it credits. Only a `refund`
+      # can name one; anything else gets `400` "Invalid Original Invoice ID". The credit
+      # note is then headed "Credit note". Used on create only.
+      sig { returns(T.nilable(String)) }
+      attr_accessor :original_invoice_id
+
       # Pad the auto-generated invoice number with leading zeros to this length.
       sig { returns(T.nilable(Integer)) }
       attr_reader :pad_invoice_number
@@ -127,6 +133,7 @@ module Vatsense
           is_copy: T::Boolean,
           is_reverse_charge: T::Boolean,
           notes: String,
+          original_invoice_id: T.nilable(String),
           pad_invoice_number: Integer,
           serial: String,
           tax_type: Vatsense::CreateInvoice::TaxType::OrSymbol,
@@ -156,6 +163,7 @@ module Vatsense
         is_reverse_charge: nil,
         # Any additional notes for the invoice.
         notes: nil,
+        original_invoice_id: nil,
         # Pad the auto-generated invoice number with leading zeros to this length.
         pad_invoice_number: nil,
         # A serial prepended to the auto-generated invoice number. Each unique serial has
@@ -185,6 +193,7 @@ module Vatsense
             is_copy: T::Boolean,
             is_reverse_charge: T::Boolean,
             notes: String,
+            original_invoice_id: T.nilable(String),
             pad_invoice_number: Integer,
             serial: String,
             tax_type: Vatsense::CreateInvoice::TaxType::OrSymbol,

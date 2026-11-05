@@ -14,6 +14,41 @@ module Vatsense
       #   @return [String, nil]
       optional :eori_number, String
 
+      # @!attribute match_address
+      #   The whole address you hold, as one line, matched against the registered
+      #   address.
+      #
+      #   @return [String, nil]
+      optional :match_address, String
+
+      # @!attribute match_city
+      #   The town or city you hold, looked for in the registered address.
+      #
+      #   @return [String, nil]
+      optional :match_city, String
+
+      # @!attribute match_company_name
+      #   The company name you hold, matched against the registered name. Legal forms
+      #   such as Ltd or GmbH, accents, punctuation and word order are ignored. Sending
+      #   any `match_` parameter adds `match` to the response; matching costs nothing
+      #   extra.
+      #
+      #   @return [String, nil]
+      optional :match_company_name, String
+
+      # @!attribute match_postcode
+      #   The postcode you hold, looked for in the registered address. Spaces are
+      #   ignored.
+      #
+      #   @return [String, nil]
+      optional :match_postcode, String
+
+      # @!attribute match_street
+      #   The street line you hold, looked for in the registered address.
+      #
+      #   @return [String, nil]
+      optional :match_street, String
+
       # @!attribute requester_vat_number
       #   Your own VAT number. If supplied, the response will include a unique
       #   consultation number issued by the relevant authority (VIES or HMRC). Must
@@ -32,7 +67,7 @@ module Vatsense
       #   @return [String, nil]
       optional :vat_number, String
 
-      # @!method initialize(eori_number: nil, requester_vat_number: nil, vat_number: nil, request_options: {})
+      # @!method initialize(eori_number: nil, requester_vat_number: nil, vat_number: nil, match_address: nil, match_city: nil, match_company_name: nil, match_postcode: nil, match_street: nil, request_options: {})
       #   Some parameter documentations has been truncated, see
       #   {Vatsense::Models::ValidateCheckParams} for more details.
       #

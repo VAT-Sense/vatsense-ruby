@@ -49,7 +49,9 @@ module Vatsense
       optional :invoice_number, String
 
       # @!attribute invoice_url
-      #   Unique URL to view the invoice. Append "/pdf" to download a PDF copy.
+      #   Unique, unguessable URL to view the invoice. Append "/pdf" to download a PDF
+      #   copy. Invoices created before the November 2026 relaunch keep their earlier
+      #   style of link.
       #
       #   @return [String, nil]
       optional :invoice_url, String
@@ -84,6 +86,12 @@ module Vatsense
       #   @return [Symbol, Vatsense::Models::InvoiceAPI::Object, nil]
       optional :object, enum: -> { Vatsense::InvoiceAPI::Object }
 
+      # @!attribute original_invoice_id
+      #   On a credit note that names the sale invoice it credits: that invoice's ID.
+      #
+      #   @return [String, nil]
+      optional :original_invoice_id, String
+
       # @!attribute tax_point
       #
       #   @return [String, nil]
@@ -114,7 +122,7 @@ module Vatsense
       #   @return [Boolean, nil]
       optional :zero_rated, Vatsense::Internal::Type::Boolean
 
-      # @!method initialize(id: nil, business: nil, conversion: nil, created: nil, currency_code: nil, customer: nil, date: nil, has_vat: nil, invoice_number: nil, invoice_url: nil, is_copy: nil, is_reverse_charge: nil, items: nil, notes: nil, num_items: nil, object: nil, tax_point: nil, tax_type: nil, totals: nil, type: nil, updated: nil, zero_rated: nil)
+      # @!method initialize(id: nil, business: nil, conversion: nil, created: nil, currency_code: nil, customer: nil, date: nil, has_vat: nil, invoice_number: nil, invoice_url: nil, is_copy: nil, is_reverse_charge: nil, items: nil, notes: nil, num_items: nil, object: nil, tax_point: nil, tax_type: nil, totals: nil, type: nil, updated: nil, zero_rated: nil, original_invoice_id: nil)
       #   @param id [String]
       #
       #   @param business [Vatsense::Models::InvoiceAPI::Business]
@@ -133,7 +141,7 @@ module Vatsense
       #
       #   @param invoice_number [String]
       #
-      #   @param invoice_url [String] Unique URL to view the invoice. Append "/pdf" to download a PDF copy.
+      #   @param invoice_url [String] Unique, unguessable URL to view the invoice. Append "/pdf" to download a PDF
       #
       #   @param is_copy [Boolean]
       #

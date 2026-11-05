@@ -11,15 +11,27 @@ module Vatsense
           T.any(Vatsense::InvoiceCreateParams, Vatsense::Internal::AnyHash)
         end
 
+      # Sent as the `Idempotency-Key` header to retry a create safely.
+      sig { returns(T.nilable(String)) }
+      attr_reader :idempotency_key
+
+      sig { params(idempotency_key: String).void }
+      attr_writer :idempotency_key
+
       sig do
-        params(request_options: Vatsense::RequestOptions::OrHash).returns(
-          T.attached_class
-        )
+        params(
+          idempotency_key: String,
+          request_options: Vatsense::RequestOptions::OrHash
+        ).returns(T.attached_class)
       end
-      def self.new(request_options: {})
+      def self.new(idempotency_key: nil, request_options: {})
       end
 
-      sig { override.returns({ request_options: Vatsense::RequestOptions }) }
+      sig do
+        override.returns(
+          { idempotency_key: String, request_options: Vatsense::RequestOptions }
+        )
+      end
       def to_hash
       end
     end

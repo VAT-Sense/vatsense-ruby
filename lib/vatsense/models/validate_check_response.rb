@@ -38,13 +38,19 @@ module Vatsense
         #   @return [String, nil]
         optional :consultation_number, String, nil?: true
 
+        # @!attribute match
+        #   Only when a `match_` parameter was sent.
+        #
+        #   @return [Vatsense::Models::ValidateCheckResponse::Data::Match, nil]
+        optional :match, -> { Vatsense::Models::ValidateCheckResponse::Data::Match }
+
         # @!attribute valid
         #   Whether the VAT/EORI number is valid.
         #
         #   @return [Boolean, nil]
         optional :valid, Vatsense::Internal::Type::Boolean
 
-        # @!method initialize(company: nil, consultation_number: nil, valid: nil)
+        # @!method initialize(company: nil, consultation_number: nil, match: nil, valid: nil)
         #   Some parameter documentations has been truncated, see
         #   {Vatsense::Models::ValidateCheckResponse::Data} for more details.
         #
@@ -53,6 +59,62 @@ module Vatsense
         #   @param consultation_number [String, nil] Official consultation number (only returned when requester_vat_number is provide
         #
         #   @param valid [Boolean] Whether the VAT/EORI number is valid.
+
+        # @see Vatsense::Models::ValidateCheckResponse::Data#match
+        class Match < Vatsense::Internal::Type::BaseModel
+          # @!attribute fields
+          #   One entry for each detail sent (company_name, address, street, postcode,
+          #   city).
+          #
+          #   @return [Hash{Symbol=>Vatsense::Models::ValidateCheckResponse::Data::Match::Field}, nil]
+          optional :fields,
+                   -> { Vatsense::Internal::Type::HashOf[Vatsense::Models::ValidateCheckResponse::Data::Match::Field] }
+
+          # @!attribute result
+          #   likely (a score of 80 or more, and the name, if sent, is not a no_match),
+          #   possible (50 to 79), unlikely (under 50), or not_applicable when nothing could
+          #   be compared.
+          #
+          #   @return [String, nil]
+          optional :result, String
+
+          # @!attribute score
+          #   The average of the details sent, with the name counting twice. nil when
+          #   not_applicable.
+          #
+          #   @return [Integer, nil]
+          optional :score, Integer, nil?: true
+
+          # @!method initialize(fields: nil, result: nil, score: nil)
+          #   @param fields [Hash{Symbol=>Vatsense::Models::ValidateCheckResponse::Data::Match::Field}]
+          #   @param result [String]
+          #   @param score [Integer, nil]
+
+          class Field < Vatsense::Internal::Type::BaseModel
+            # @!attribute result
+            #   One of "match", "partial", "no_match" or "not_applicable".
+            #
+            #   @return [String, nil]
+            optional :result, String
+
+            # @!attribute score
+            #
+            #   @return [Integer, nil]
+            optional :score, Integer, nil?: true
+
+            # @!attribute vies
+            #   VIES's own answer for that detail on a live EU check ("valid", "invalid" or
+            #   "not_processed"); nil when VIES said nothing.
+            #
+            #   @return [String, nil]
+            optional :vies, String, nil?: true
+
+            # @!method initialize(result: nil, score: nil, vies: nil)
+            #   @param result [String]
+            #   @param score [Integer, nil]
+            #   @param vies [String, nil]
+          end
+        end
 
         # @see Vatsense::Models::ValidateCheckResponse::Data#company
         module Company

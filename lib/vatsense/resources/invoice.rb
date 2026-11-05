@@ -16,7 +16,11 @@ module Vatsense
       #
       # Not available with sandbox API keys.
       #
-      # @overload create(business:, currency_code:, date:, items:, tax_point:, conversion: nil, customer: nil, has_vat: nil, invoice_number: nil, is_copy: nil, is_reverse_charge: nil, notes: nil, pad_invoice_number: nil, serial: nil, tax_type: nil, type: nil, zero_rated: nil, request_options: {})
+      # Pass `idempotency_key:` to retry a create safely: a repeat with the same key and
+      # the same body, byte for byte, creates nothing and returns the invoice the first
+      # request made.
+      #
+      # @overload create(business:, currency_code:, date:, items:, tax_point:, conversion: nil, customer: nil, has_vat: nil, invoice_number: nil, is_copy: nil, is_reverse_charge: nil, notes: nil, pad_invoice_number: nil, serial: nil, tax_type: nil, type: nil, zero_rated: nil, original_invoice_id: nil, idempotency_key: nil, request_options: {})
       #
       # @param business [Vatsense::Models::InvoiceBusinessInput]
       #
@@ -59,10 +63,12 @@ module Vatsense
       # @see Vatsense::Models::InvoiceCreateParams
       def create(params)
         parsed, options = Vatsense::InvoiceCreateParams.dump_request(params)
+        header_params = {idempotency_key: "idempotency-key"}
         @client.request(
           method: :post,
           path: "invoice",
-          body: parsed,
+          headers: parsed.slice(*header_params.keys).transform_keys(header_params),
+          body: parsed.except(*header_params.keys),
           model: Vatsense::InvoiceResponse,
           options: options
         )

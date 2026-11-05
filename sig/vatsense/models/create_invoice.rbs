@@ -18,7 +18,8 @@ module Vatsense
         serial: String,
         tax_type: Vatsense::Models::CreateInvoice::tax_type,
         type: Vatsense::Models::CreateInvoice::type_,
-        zero_rated: bool
+        zero_rated: bool,
+        original_invoice_id: String?
       }
 
     class CreateInvoice < Vatsense::Internal::Type::BaseModel
@@ -64,6 +65,8 @@ module Vatsense
 
       def notes=: (String) -> String
 
+      attr_accessor original_invoice_id: String?
+
       attr_reader pad_invoice_number: Integer?
 
       def pad_invoice_number=: (Integer) -> Integer
@@ -101,6 +104,7 @@ module Vatsense
         ?is_copy: bool,
         ?is_reverse_charge: bool,
         ?notes: String,
+        ?original_invoice_id: String?,
         ?pad_invoice_number: Integer,
         ?serial: String,
         ?tax_type: Vatsense::Models::CreateInvoice::tax_type,
@@ -121,6 +125,7 @@ module Vatsense
         is_copy: bool,
         is_reverse_charge: bool,
         notes: String,
+        original_invoice_id: String?,
         pad_invoice_number: Integer,
         serial: String,
         tax_type: Vatsense::Models::CreateInvoice::tax_type,

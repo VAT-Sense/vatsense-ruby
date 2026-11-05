@@ -6,6 +6,7 @@ module Vatsense
         ?eu: bool,
         ?ip_address: String,
         ?period: Time,
+        ?provinces: bool,
         ?request_options: Vatsense::request_opts
       ) -> Vatsense::Models::RateListResponse
 
