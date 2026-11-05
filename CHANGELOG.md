@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/VAT-Sense/vatsense-ruby/compare/v0.1.2...v0.2.0) (2026-11-05)
+
+
+### Features
+
+* **api:** company matching, provinces filter, Idempotency-Key and credit notes ([#5](https://github.com/VAT-Sense/vatsense-ruby/issues/5)) ([99de989](https://github.com/VAT-Sense/vatsense-ruby/commit/99de9895018cc3e8945d77958891a393d2c5bfc6))
+
 ## 0.1.2 (2026-04-09)
 
 Full Changelog: [v0.1.1...v0.1.2](https://github.com/VAT-Sense/vatsense-ruby/compare/v0.1.1...v0.1.2)
