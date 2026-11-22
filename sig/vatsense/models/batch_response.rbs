@@ -1,0 +1,10 @@
+module Vatsense
+  module Models
+    class BatchResponse < Vatsense::Internal::Type::BaseModel
+      attr_accessor code: Integer
+      attr_accessor data: Vatsense::Models::Batch
+      attr_accessor success: bool
+      def initialize: (code: Integer, data: Vatsense::Models::Batch, success: bool) -> void
+    end
+  end
+end

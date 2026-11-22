@@ -51,6 +51,10 @@ module Vatsense
     # @return [Vatsense::Resources::Sandbox]
     attr_reader :sandbox
 
+    # Bulk validation: check many VAT numbers in one batch
+    # @return [Vatsense::Resources::Batches]
+    attr_reader :batches
+
     # @api private
     #
     # @param security [Hash{Symbol=>Boolean}]
@@ -124,6 +128,7 @@ module Vatsense
       @invoice = Vatsense::Resources::Invoice.new(client: self)
       @usage = Vatsense::Resources::Usage.new(client: self)
       @sandbox = Vatsense::Resources::Sandbox.new(client: self)
+      @batches = Vatsense::Resources::Batches.new(client: self)
     end
   end
 end

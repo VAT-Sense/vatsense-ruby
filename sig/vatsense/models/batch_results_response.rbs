@@ -1,0 +1,17 @@
+module Vatsense
+  module Models
+    class BatchResultsResponse < Vatsense::Internal::Type::BaseModel
+      attr_accessor code: Integer
+      attr_accessor data: Vatsense::Models::BatchResultsResponse::Data
+      attr_accessor success: bool
+      class Data < Vatsense::Internal::Type::BaseModel
+        attr_accessor data: ::Array[Vatsense::Models::BatchResult]
+        attr_accessor has_more: bool
+        attr_accessor next_after: Integer?
+        def initialize: (data: ::Array[Vatsense::Models::BatchResult], has_more: bool, ?next_after: Integer?) -> void
+      end
+
+      def initialize: (code: Integer, data: Vatsense::Models::BatchResultsResponse::Data, success: bool) -> void
+    end
+  end
+end

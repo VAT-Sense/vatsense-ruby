@@ -72,6 +72,62 @@ puts response.data.consultation_number
 
 > **Note:** GB requester numbers only work for GB validations, and EU requester numbers only work for EU validations. Cross-region requests are not supported.
 
+If you would rather have an answer than wait for a consultation number when VIES is down, send `consultation_optional: true`. Where a national register can confirm the number, you get the answer with no `consultation_number` instead of the `412`.
+
+### Check many numbers at once (batches)
+
+A batch checks a list of VAT numbers, as the dashboard's bulk validator does with a file. Batch calls are free and each number checked counts as one request. With a test key the batch is answered from the test numbers and costs nothing.
+
+```ruby
+batch = client.batches.create(
+  numbers: ["GB288305674", "FR12345678901"],
+  reference: "November customers",
+  idempotency_key: "november-customers",
+).data
+
+# Poll, or take the batch.completed webhook instead.
+status = batch.status
+until %w[complete paused expired].include?(status)
+  sleep(10)
+  status = client.batches.retrieve(batch.id).data.status
+end
+
+after = 0
+loop do
+  page = client.batches.results(batch.id, after: after, limit: 1000).data
+  page.data.each { |row| puts [row.vat_number, row.result, row.company_name].join(" ") }
+  break unless page.has_more
+
+  after = page.next_after
+end
+
+csv = client.batches.results_csv(batch.id)
+```
+
+Send `rows: [{vat_number:, company_name:, postcode:}]` instead of `numbers:` for company matching. A batch can also be paused, continued (`client.batches.continue`), completed and, while a draft, deleted.
+
+### Check a webhook's signature
+
+Every webhook event carries a `VatSense-Signature` header. Check it against the raw request body with the endpoint's signing secret before trusting the event:
+
+```ruby
+begin
+  event = Vatsense::Webhook.construct_event(
+    request.raw_post,
+    request.headers[Vatsense::Webhook::SIGNATURE_HEADER],
+    ENV.fetch("VATSENSE_WEBHOOK_SECRET"),
+  )
+rescue Vatsense::Webhook::SignatureError
+  head(:bad_request) and return
+end
+
+if event[:type] == "batch.completed"
+  # ...
+end
+```
+
+Events more than 5 minutes old are refused (change it with `tolerance:`). During the 24 hours after a secret is rolled, events signed with either secret are accepted.
+
 ### Find the VAT rate for a country
 
 ```ruby
@@ -189,6 +245,7 @@ response = client.validate.check(
 | `client.rates`        | VAT/GST rate lookups, price calculations         |
 | `client.countries`    | Country data and province lookups                |
 | `client.currency`     | Exchange rates and currency conversion           |
+| `client.batches`      | Check many VAT numbers in one batch              |
 | `client.invoice`      | Create and manage VAT-compliant invoices         |
 | `client.usage`        | Check your API usage                             |
 

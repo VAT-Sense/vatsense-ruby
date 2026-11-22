@@ -1,0 +1,72 @@
+module Vatsense
+  module Resources
+    class Batches
+      def create: (
+        ?numbers: ::Array[String],
+        ?rows: ::Array[::Hash[Symbol, String]],
+        ?reference: String,
+        ?start: bool,
+        ?shortfall: Symbol | String,
+        ?auto_continue: bool,
+        ?consultation: bool,
+        ?idempotency_key: String,
+        ?request_options: Vatsense::request_opts
+      ) -> Vatsense::Models::BatchResponse
+
+      def list: (
+        ?page: Integer,
+        ?limit: Integer,
+        ?status: Symbol | String,
+        ?request_options: Vatsense::request_opts
+      ) -> Vatsense::Models::BatchListResponse
+
+      def retrieve: (
+        String batch_id,
+        ?request_options: Vatsense::request_opts
+      ) -> Vatsense::Models::BatchResponse
+
+      def delete: (
+        String batch_id,
+        ?request_options: Vatsense::request_opts
+      ) -> Vatsense::Models::BatchDeleteResponse
+
+      def start: (
+        String batch_id,
+        ?shortfall: Symbol | String,
+        ?auto_continue: bool,
+        ?consultation: bool,
+        ?request_options: Vatsense::request_opts
+      ) -> Vatsense::Models::BatchResponse
+
+      def pause: (
+        String batch_id,
+        ?request_options: Vatsense::request_opts
+      ) -> Vatsense::Models::BatchResponse
+
+      def continue: (
+        String batch_id,
+        ?shortfall: Symbol | String,
+        ?request_options: Vatsense::request_opts
+      ) -> Vatsense::Models::BatchResponse
+
+      def complete: (
+        String batch_id,
+        ?request_options: Vatsense::request_opts
+      ) -> Vatsense::Models::BatchResponse
+
+      def results: (
+        String batch_id,
+        ?after: Integer,
+        ?limit: Integer,
+        ?request_options: Vatsense::request_opts
+      ) -> Vatsense::Models::BatchResultsResponse
+
+      def results_csv: (
+        String batch_id,
+        ?request_options: Vatsense::request_opts
+      ) -> String
+
+      def initialize: (client: Vatsense::Client) -> void
+    end
+  end
+end

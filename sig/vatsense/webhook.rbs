@@ -1,0 +1,28 @@
+module Vatsense
+  module Webhook
+    SIGNATURE_HEADER: String
+
+    DEFAULT_TOLERANCE: Integer
+
+    class SignatureError < Vatsense::Errors::Error
+    end
+
+    def self.verify_signature: (
+      String payload,
+      String? header,
+      String secret,
+      ?tolerance: Integer?,
+      ?now: Integer?
+    ) -> true
+
+    def self.construct_event: (
+      String payload,
+      String? header,
+      String secret,
+      ?tolerance: Integer?,
+      ?now: Integer?
+    ) -> ::Hash[Symbol, untyped]
+
+    private def self.secure_compare: (String expected, String given) -> bool
+  end
+end

@@ -93,6 +93,10 @@ module Vatsense
 
   SandboxGenerateKeyParams = Vatsense::Models::SandboxGenerateKeyParams
 
+  Batch = Vatsense::Models::Batch
+
+  BatchResult = Vatsense::Models::BatchResult
+
   TaxRate = Vatsense::Models::TaxRate
 
   UsageRetrieveParams = Vatsense::Models::UsageRetrieveParams

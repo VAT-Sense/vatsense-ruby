@@ -37,6 +37,7 @@ module Vatsense
       type data =
         {
           company: Vatsense::Models::ValidateCheckResponse::Data::company,
+          confirmation_number: String?,
           consultation_number: String?,
           match: Vatsense::Models::ValidateCheckResponse::Data::Match,
           valid: bool
@@ -48,6 +49,8 @@ module Vatsense
         def company=: (
           Vatsense::Models::ValidateCheckResponse::Data::company
         ) -> Vatsense::Models::ValidateCheckResponse::Data::company
+
+        attr_accessor confirmation_number: String?
 
         attr_accessor consultation_number: String?
 
@@ -63,6 +66,7 @@ module Vatsense
 
         def initialize: (
           ?company: Vatsense::Models::ValidateCheckResponse::Data::company,
+          ?confirmation_number: String?,
           ?consultation_number: String?,
           ?match: Vatsense::Models::ValidateCheckResponse::Data::Match,
           ?valid: bool
@@ -70,6 +74,7 @@ module Vatsense
 
         def to_hash: -> {
           company: Vatsense::Models::ValidateCheckResponse::Data::company,
+          confirmation_number: String?,
           consultation_number: String?,
           match: Vatsense::Models::ValidateCheckResponse::Data::Match,
           valid: bool
