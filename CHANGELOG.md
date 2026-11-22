@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/VAT-Sense/vatsense-ruby/compare/v0.2.0...v0.3.0) (2026-11-22)
+
+
+### Features
+
+* **api:** batches, consultation_optional, confirmation_number and webhook signatures ([#9](https://github.com/VAT-Sense/vatsense-ruby/issues/9)) ([60d306b](https://github.com/VAT-Sense/vatsense-ruby/commit/60d306b68b8d6c2b109dec4d434df546620b33e2))
+
 ## [0.2.0](https://github.com/VAT-Sense/vatsense-ruby/compare/v0.1.2...v0.2.0) (2026-11-05)
 
 
