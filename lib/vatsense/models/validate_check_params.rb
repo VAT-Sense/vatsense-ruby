@@ -43,6 +43,18 @@ module Vatsense
       #   @return [String, nil]
       optional :match_postcode, String
 
+      # @!attribute consultation_optional
+      #   Send `true` with `requester_vat_number` if you would rather have an answer than
+      #   wait for a consultation number. When VIES cannot answer for the number's
+      #   country and that country has a national register fallback, the answer comes
+      #   from the register with no `consultation_number`, instead of the `412`. If VIES
+      #   cannot check your own `requester_vat_number`, the number is checked without it,
+      #   again with no `consultation_number`. Leave it out if you need the consultation
+      #   number as proof of the check.
+      #
+      #   @return [Boolean, nil]
+      optional :consultation_optional, Vatsense::Internal::Type::Boolean
+
       # @!attribute match_street
       #   The street line you hold, looked for in the registered address.
       #
@@ -67,7 +79,7 @@ module Vatsense
       #   @return [String, nil]
       optional :vat_number, String
 
-      # @!method initialize(eori_number: nil, requester_vat_number: nil, vat_number: nil, match_address: nil, match_city: nil, match_company_name: nil, match_postcode: nil, match_street: nil, request_options: {})
+      # @!method initialize(eori_number: nil, requester_vat_number: nil, vat_number: nil, match_address: nil, match_city: nil, match_company_name: nil, match_postcode: nil, match_street: nil, consultation_optional: nil, request_options: {})
       #   Some parameter documentations has been truncated, see
       #   {Vatsense::Models::ValidateCheckParams} for more details.
       #

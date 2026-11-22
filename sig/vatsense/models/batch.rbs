@@ -1,0 +1,57 @@
+module Vatsense
+  module Models
+    class Batch < Vatsense::Internal::Type::BaseModel
+      attr_accessor id: String
+      attr_accessor object: String?
+      attr_accessor auto_continue: bool?
+      attr_accessor consultation: bool?
+      attr_accessor created_at: String?
+      attr_accessor dashboard_url: String?
+      attr_accessor estimated_finish_at: String?
+      attr_accessor expires_at: String?
+      attr_accessor finished_at: String?
+      attr_accessor livemode: bool?
+      attr_accessor number: Integer?
+      attr_accessor pause_reason: String?
+      attr_accessor quote: Vatsense::Models::Batch::Quote?
+      attr_accessor reference: String?
+      attr_accessor requests_used: Integer?
+      attr_accessor results: Vatsense::Models::Batch::Results?
+      attr_accessor rows: Vatsense::Models::Batch::Rows?
+      attr_accessor source: String?
+      attr_accessor started_at: String?
+      attr_accessor status: String?
+      attr_accessor trial: bool?
+      attr_accessor uses_overage: bool?
+      class Rows < Vatsense::Internal::Type::BaseModel
+        attr_accessor done: Integer?
+        attr_accessor to_check: Integer?
+        attr_accessor total: Integer?
+        def initialize: (?done: Integer?, ?to_check: Integer?, ?total: Integer?) -> void
+      end
+
+      class Results < Vatsense::Internal::Type::BaseModel
+        attr_accessor duplicate: Integer?
+        attr_accessor invalid: Integer?
+        attr_accessor not_checked: Integer?
+        attr_accessor repaired: Integer?
+        attr_accessor retrying: Integer?
+        attr_accessor unsupported: Integer?
+        attr_accessor valid: Integer?
+        def initialize: (?duplicate: Integer?, ?invalid: Integer?, ?not_checked: Integer?, ?repaired: Integer?, ?retrying: Integer?, ?unsupported: Integer?, ?valid: Integer?) -> void
+      end
+
+      class Quote < Vatsense::Internal::Type::BaseModel
+        attr_accessor covered: bool?
+        attr_accessor overage_on: bool?
+        attr_accessor renews_at: String?
+        attr_accessor requests_left: Integer?
+        attr_accessor requests_needed: Integer?
+        attr_accessor shortfall: Integer?
+        def initialize: (?covered: bool?, ?overage_on: bool?, ?renews_at: String?, ?requests_left: Integer?, ?requests_needed: Integer?, ?shortfall: Integer?) -> void
+      end
+
+      def initialize: (id: String, ?object: String?, ?auto_continue: bool?, ?consultation: bool?, ?created_at: String?, ?dashboard_url: String?, ?estimated_finish_at: String?, ?expires_at: String?, ?finished_at: String?, ?livemode: bool?, ?number: Integer?, ?pause_reason: String?, ?quote: Vatsense::Models::Batch::Quote?, ?reference: String?, ?requests_used: Integer?, ?results: Vatsense::Models::Batch::Results?, ?rows: Vatsense::Models::Batch::Rows?, ?source: String?, ?started_at: String?, ?status: String?, ?trial: bool?, ?uses_overage: bool?) -> void
+    end
+  end
+end

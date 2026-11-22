@@ -31,6 +31,13 @@ module Vatsense
         #   @return [Vatsense::Models::ValidateCheckResponse::Data::Company::ValidationCompany, Vatsense::Models::ValidateCheckResponse::Data::Company::EoriValidationCompany, nil]
         optional :company, union: -> { Vatsense::Models::ValidateCheckResponse::Data::Company }
 
+        # @!attribute confirmation_number
+        #   VAT Sense's own reference for this check (beta, only for accounts in the
+        #   beta). It is not an official number.
+        #
+        #   @return [String, nil]
+        optional :confirmation_number, String, nil?: true
+
         # @!attribute consultation_number
         #   Official consultation number (only returned when requester_vat_number is
         #   provided).

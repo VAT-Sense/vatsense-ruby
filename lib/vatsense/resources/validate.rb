@@ -25,7 +25,7 @@ module Vatsense
       #
       # Provide either `vat_number` or `eori_number`, but not both.
       #
-      # @overload check(eori_number: nil, requester_vat_number: nil, vat_number: nil, match_address: nil, match_city: nil, match_company_name: nil, match_postcode: nil, match_street: nil, request_options: {})
+      # @overload check(eori_number: nil, requester_vat_number: nil, vat_number: nil, match_address: nil, match_city: nil, match_company_name: nil, match_postcode: nil, match_street: nil, consultation_optional: nil, request_options: {})
       #
       # @param eori_number [String] The EORI number to validate. Must include the leading 2-character
       #

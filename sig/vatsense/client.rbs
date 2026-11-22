@@ -26,6 +26,8 @@ module Vatsense
 
     attr_reader sandbox: Vatsense::Resources::Sandbox
 
+    attr_reader batches: Vatsense::Resources::Batches
+
     private def auth_headers: (
       security: { basic_auth: bool }
     ) -> ::Hash[String, String]

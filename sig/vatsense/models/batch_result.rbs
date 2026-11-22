@@ -1,0 +1,38 @@
+module Vatsense
+  module Models
+    class BatchResult < Vatsense::Internal::Type::BaseModel
+      attr_accessor row: Integer
+      attr_accessor authority: String?
+      attr_accessor checked_at: String?
+      attr_accessor company_address: String?
+      attr_accessor company_name: String?
+      attr_accessor confirmation_number: String?
+      attr_accessor consultation_number: String?
+      attr_accessor country_code: String?
+      attr_accessor country_uploaded: String?
+      attr_accessor duplicate_of_row: Integer?
+      attr_accessor match: Vatsense::Models::BatchResult::Match?
+      attr_accessor reason: String?
+      attr_accessor repaired: bool?
+      attr_accessor result: String?
+      attr_accessor vat_number: String?
+      attr_accessor vat_number_uploaded: String?
+      class Match < Vatsense::Internal::Type::BaseModel
+        attr_accessor fields: ::Hash[Symbol, Vatsense::Models::BatchResult::Match::Field]?
+        attr_accessor result: String?
+        attr_accessor score: Integer?
+        class Field < Vatsense::Internal::Type::BaseModel
+          attr_accessor result: String?
+          attr_accessor score: Integer?
+          attr_accessor sent: String?
+          attr_accessor vies: String?
+          def initialize: (?result: String?, ?score: Integer?, ?sent: String?, ?vies: String?) -> void
+        end
+
+        def initialize: (?fields: ::Hash[Symbol, Vatsense::Models::BatchResult::Match::Field]?, ?result: String?, ?score: Integer?) -> void
+      end
+
+      def initialize: (row: Integer, ?authority: String?, ?checked_at: String?, ?company_address: String?, ?company_name: String?, ?confirmation_number: String?, ?consultation_number: String?, ?country_code: String?, ?country_uploaded: String?, ?duplicate_of_row: Integer?, ?match: Vatsense::Models::BatchResult::Match?, ?reason: String?, ?repaired: bool?, ?result: String?, ?vat_number: String?, ?vat_number_uploaded: String?) -> void
+    end
+  end
+end

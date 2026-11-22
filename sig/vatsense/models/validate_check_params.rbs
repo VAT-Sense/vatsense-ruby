@@ -1,12 +1,16 @@
 module Vatsense
   module Models
     type validate_check_params =
-      { eori_number: String, requester_vat_number: String, vat_number: String, match_address: String, match_city: String, match_company_name: String, match_postcode: String, match_street: String }
+      { consultation_optional: bool, eori_number: String, requester_vat_number: String, vat_number: String, match_address: String, match_city: String, match_company_name: String, match_postcode: String, match_street: String }
       & Vatsense::Internal::Type::request_parameters
 
     class ValidateCheckParams < Vatsense::Internal::Type::BaseModel
       extend Vatsense::Internal::Type::RequestParameters::Converter
       include Vatsense::Internal::Type::RequestParameters
+
+      attr_reader consultation_optional: bool?
+
+      def consultation_optional=: (bool) -> bool
 
       attr_reader eori_number: String?
 
@@ -41,6 +45,7 @@ module Vatsense
       def vat_number=: (String) -> String
 
       def initialize: (
+        ?consultation_optional: bool,
         ?eori_number: String,
         ?match_address: String,
         ?match_city: String,
@@ -53,6 +58,7 @@ module Vatsense
       ) -> void
 
       def to_hash: -> {
+        consultation_optional: bool,
         eori_number: String,
         match_address: String,
         match_city: String,
